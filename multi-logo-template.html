@@ -1,0 +1,55 @@
+<div class="formRow" id="formRowx_logo_path">
+  <label for="x_logo_path" class="formLabel">Client/Program Logo:
+    <div class="cg-tooltip-icon">
+      <a data-html="true" title="<p>The following general guidelines apply:</p><ul><li>Minimum image width should be 900px</li><li>Background should be white or transparent</li><li>Logo should be cropped up to the left and right edges of the image</li><li>File format should be png or jpg</li></ul>" tabindex=0><span class="hintText">(?)</span></a>
+    </div>
+  </label>
+
+  <div class="formFloater">
+    <div class="logo-placeholder">
+      <img src="{{multiLogoDefaultPath}}" onerror="this.onerror=''; this.src='path-to-broken-image-image';" />
+    </div>
+    <div class="descriptionText description">
+      <p>Provide the relative path to the image hosted by CyberGrants (requires that the image first be uploaded to the CyberGrants server by staff), e.g. "/client/eg_logo.png".</p>
+    </div>
+    <input class="formInput" maxlength="255" id="multi-logo-default" type="text" value="{{multiLogoDefaultPath}}">
+    <label class="formButton" for="multi-logo-default">Preview</label>
+    <div>
+      <button class="formButton add-alternate-logo">Add Alternate Logo(s)</button>
+      <button class="formButton delete-alternate-logo">Delete This Logo</button>
+    </div>
+  </div>
+</div>
+
+<div class="formRow" id="formRowx_logo_path">
+  <label class="formLabel">Configure alternate branding by:</label>
+  <div class="formFloater">
+    <div>
+      <select class="formSelect">
+        {{#each brandingChoice}}
+        <option>{{this}}</option>
+      </select>
+    </div>
+    <div class="logo-placeholder">
+      <img src="path-to-'upload-your-image'-image" onerror="this.onerror=''; this.src='pathe-to-broken-image-image';" />
+    </div>
+  </div>
+  <label class="formLabel">Please choose a country:</label>
+  <div class="formFloater">
+    <select class="formSelectMulti" multiple="multiple">
+      {{#each country}}
+        <option>{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <label class="formLabel">Alternate client/program logo:</label>
+  <div class="formFloater">
+    <input class="formInput" maxlength="255" id="logo-path-with-unique-identifier" type="text">
+    <label class="formButton" for="logo-path-with-unique-identifier">Preview</label>
+    <div>
+      <button class="formButton add-alternate-logo">Add Alternate Logo(s)</button>
+      <button class="formButton delete-alternate-logo">Delete This Logo</button>
+    </div>
+  </div>
+</div>
+</div>

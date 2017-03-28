@@ -1,0 +1,10 @@
+{
+  multiLogoDefaultPath: "www.image.com",
+  "country": [
+    {"id":1, "name":"Canada", "selected": true},
+    {"id":2, "name":"USA USA USA", "selected": true}
+      ,
+    "USA USA USA",
+    "Narnia"
+  ]
+}
