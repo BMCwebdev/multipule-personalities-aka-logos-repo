@@ -1,0 +1,52 @@
+<script>
+  jQuery( document ).ready(function() {
+    var inputLabel = jQuery('#x_logo_path_label');
+    var inputField = jQuery('#x_logo_path');
+    console.log(inputLabel);
+    function changeLogoPath() {
+      var logopath = jQuery('#x_logo_path').val();
+      console.log(logopath);
+      var logo = jQuery('.logo-placeholder img');
+      console.log(logo);
+      jQuery(logo).attr('src', logopath);
+    }
+    jQuery(inputLabel).click(function () {
+      changeLogoPath();
+    });
+    jQuery(inputField).submit(function (event) {
+      event.preventDefault();
+      changeLogoPath();
+    });
+  });
+</script>
+ 
+<style>
+  .logo-placeholder img{
+    max-width: 200px;
+  }
+</style>
+ <div class="formRow" id="formRowx_logo_path">
+  <label for="x_logo_path" class="formLabel">Client/Program Logo:</label>
+  <div class="formFloater">
+    <div class="descriptionText description">
+      <p>Provide the relative path to the image hosted by CyberGrants (requires that the image first be uploaded to the CyberGrants server by staff), e.g. "/client/eg_logo.png".</p>
+      <p>The following general guidelines apply:</p>
+      <ul>
+        <li>Minimum image width should be 900px</li>
+        <li>Background should be white or transparent</li>
+        <li>Logo should be cropped up to the left and right edges of the image</li>
+        <li>File format should be png or jpg</li>
+      </ul>
+      <p></p>
+    </div>
+    
+    <div class="logo-placeholder">
+<!--     /prototype/vickyQA/vicky-test-logo-02.png-->
+      <img src="https://imagga.com/static/images/upload.svg" onerror="this.onerror=''; this.src='http://www.clker.com/cliparts/J/h/C/1/o/C/broken-file-icon-hi.png';">
+    </div>
+<!--    onchange="formChanged=true;" -->
+<!--   <input type="text" value='http://'>-->
+    <input name="x_logo_path" class="formInput" maxlength="255" value="/prototype/vickyQA/vicky-test-logo-02.png" id="x_logo_path" type="text"><label class="formButton" id="x_logo_path_label" for="x_logo_path" onclick="formChanged=true;">button</label>
+
+  </div>
+</div>

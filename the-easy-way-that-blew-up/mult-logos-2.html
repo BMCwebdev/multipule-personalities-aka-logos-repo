@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<!-- 
+Content-type: Preventing XSRF in IE. 
+
+-->
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="expires" content="Mon, 10 Jan 1999 08:00:00 GMT" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Cache-Control" content="no-cache,no-Store" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="robots" content="noindex" />
+
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/pikaday.min.css" />
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/jquery.min.js"></script>
+  <script type="text/javascript">
+    //<![CDATA[ jQuery.noConflict(); //]]>
+  </script>
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/prototype.js"></script>
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/scriptaculous.js"></script>
+  <script type="text/javascript">
+    //<![CDATA[
+    function cgrequest(url) {
+      this.url = url;
+      this.method = this.options.method;
+      var params = Object.clone(this.options.parameters);
+
+      if (!['get', 'post'].include(this.method)) {
+        // simulate other verbs over post
+        params['_method'] = this.method;
+        this.method = 'post';
+      }
+
+      this.parameters = params;
+
+      if (params = Object.toQueryString(params)) {
+        // when GET, append parameters to URL
+        if (this.method == 'get')
+          this.url += (this.url.include('?') ? '&' : '?') + params;
+        // WL: take out these two lines because PL/SQL doesn't like extra random parameters
+        //      else if (/Konqueror|Safari|KHTML/.test(navigator.userAgent))
+        //        params += '&_=';
+      }
+
+      try {
+        var response = new Ajax.Response(this);
+        if (this.options.onCreate) this.options.onCreate(response);
+        Ajax.Responders.dispatch('onCreate', this, response);
+
+        this.transport.open(this.method.toUpperCase(), this.url,
+          this.options.asynchronous);
+
+        if (this.options.asynchronous) this.respondToReadyState.bind(this).defer(1);
+
+        this.transport.onreadystatechange = this.onStateChange.bind(this);
+        this.setRequestHeaders();
+
+        this.body = this.method == 'post' ? (this.options.postBody || params) : null;
+        this.transport.send(this.body);
+
+        /* Force Firefox to handle ready state 4 for synchronous requests */
+        if (!this.options.asynchronous && this.transport.overrideMimeType)
+          this.onStateChange();
+
+      } catch (e) {
+        this.dispatchException(e);
+      }
+    }
+
+    Ajax.Request.prototype.request = cgrequest;
+    //]]>
+  </script>
+  <script type="text/javascript">
+    //<![CDATA[
+    /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false, undef:true, curly:true, browser:true, indent:4, maxerr:50, prototypejs:true,*/
+    var CyberGrants = CyberGrants || {};
+
+    CyberGrants.constants = (function(self) {
+      self.RELATIVE_DASHBOARD_PATH = '/dashboard-stgsb';
+      self.RELATIVE_FUSION_CHART_EXPORT = '/chart-stgsb/FCExporter';
+      self.RELATIVE_FUSION_CHART_URL = '/charts';
+      self.RELATIVE_FUSION_MAP_URL = '/maps';
+      self.RELATIVE_REPORT_PATH = '/rpt-stgsb';
+      self.RELATIVE_CGFORM_PATH = '/form-stgsb';
+      self.SQL_AGENT = '/pls/cybergrants-stgsb/';
+      return self;
+    })(CyberGrants.constants || {});
+    //]]>
+  </script>
+
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/cg.debug.js"></script>
+
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/gms.debug.js"></script>
+
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/layout.js"></script>
+
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/jquery.qtip.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/jquery.qtip.css">
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/auto_complete.js"></script>
+
+  <script type="text/javascript" src="https://stg-sandbox.cybergrants.com/includes/javascript/jquery.jeditable.mini.js"></script>
+
+  <script type="text/javascript">
+    //<![CDATA[
+    addEvent(document, "keydown", function() {
+      if (top) top.cgLOtimer = 0;
+      else parent.cgLOtimer = 0;
+    });
+    //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/cg_basic.css" />
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/lightbox.css" />
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/tree.css" />
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/jquery.fancybox.css" media="screen" />
+  <title>CyberGrants</title>
+
+  <!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/cg_ie6.css" />
+<![endif]-->
+  <!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/cg_ie7.css" />
+<![endif]-->
+  <!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/cg_ie8.css" />
+<![endif]-->
+  <!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/cg_ie9.css" />
+<![endif]-->
+
+  <!-- Begin GrantMaker Custom Styles -->
+
+  <!-- End GrantMaker Custom Styles -->
+  <!-- Begin User Custom Styles -->
+  <style>
+    .currentGm {
+      display: inline;
+    }
+    /*External Style - Header HTML*/
+    
+    form#styleForm fieldset div#formRowx_header.formRow textarea#x_header.formTextarea {
+      height: 445px;
+    }
+    /*EG Portlet Intro*/
+    
+    #x_intro_text.formTextarea,
+    /* EG Custom Stylesheet */
+    
+    #formRowx_custom_css #x_custom_css {
+      width: 926px;
+      height: 285px;
+    }
+    /*This Custom Stylesheet*/
+    
+    #formRowx_stylesheet textarea.formTextarea {
+      height: 40em;
+    }
+    /* Admin pg EG links */
+    
+    li.eg a {
+      color: #5C00FF !important;
+    }
+    /* Admin pg Mod Srch Dnrs */
+    
+    #userManagement ul:first-child>li.eg+li.eg:hover {
+      background-color: #CCFF00;
+    }
+    
+    #userManagement ul:first-child>li.eg+li.eg~li.eg {
+      background: transparent;
+    }
+    /* Donor Login Inst */
+    
+    #x_login_instructions[style] {
+      height: 550px !important;
+    }
+  </style>
+
+  <script>
+    jQuery(document).ready(function() {
+      //Toggle link
+      jQuery('#welcomeBox ul').prepend('<li><a href="profile.gm_switch">Toggle</a></li>');
+    });
+  </script>
+
+  <script language="JavaScript" src="https://stg.cybergrants.com/prototype/includes/javascript/internal-cg.js" type="text/javascript"></script>
+
+
+  <!-- End User Custom Styles -->
+  <link rel="stylesheet" type="text/css" href="https://stg-sandbox.cybergrants.com/includes/css/cg_print.css" media="print" />
+  <link href="https://stg-sandbox.cybergrants.com/includes/css/cg_sandbox.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <script type="text/javascript">
+    function logoff(e) {
+      e.preventDefault();
+      var basedoc = parent.document;
+      if (basedoc == null) basedoc = document;
+      basedoc.location = "cg_login.logout?x_logout_url=6DC5BA96D69C51DE82B170130570D35FA445C9B356DF11CE";
+    }
+  </script>
+  <div id="cgHeader">
+    <h1 id="siteLogo"><a title="CyberGrants, LLC" accesskey="h" tabindex="999" href="buttonbar.frame" target="_top">CyberGrants, LLC</a></h1>
+    <div id="universalNav">
+      <div id="welcomeBox">
+        <ul>
+          <li><a href="profile.change_profile" class="userProfile" target="_top">Brian McCarthy</a> <span class="currentGm">[Vicky Tran]</span></li>
+          <li><a href="config_turnstile.transfer?mod_id=8&x_url=" class="cglink" target="_blank">Access Staging</a></li>
+          <li><a href="buttonbar.frame?mod_id=7" class="linkWelcomeHelp" target="_top">CG Administration</a></li>
+          <li><a href="https://stg-sandbox.cybergrants.com/help" class="linkWelcomeHelp" target="_blank">Help</a></li>
+          <li><a href="#" onclick="logoff(event)" class="linkWelcomeSignOut">Sign Out</a></li>
+        </ul>
+      </div>
+      <!-- end welcomeBox -->
+    </div>
+    <!-- end universalNav -->
+    <div id="mainNav">
+      <ul>
+        <li id="cgTab99">
+          <a href="int_portal.home?x_mod_id=99" target="_top">Dashboard</a>
+        </li>
+        <li id="cgTab1">
+          <a href="srch.list?x_mod_id=1&x_search_id=7569076&rows_per_page=&x_action=Search" target="_top">Main</a>
+        </li>
+        <li id="cgTab2">
+          <a href="buttonbar.frame?mod_id=2" target="_top">Reports</a>
+        </li>
+        <li id="cgTab11">
+          <a href="srch.list?x_mod_id=11&x_action=Search" target="_top">Surveys</a>
+        </li>
+        <li id="cgTab4">
+          <a href="buttonbar.frame?mod_id=4" target="_top">Mail</a>
+        </li>
+        <li id="cgTab5">
+          <a href="buttonbar.frame?mod_id=5" target="_top">Budget</a>
+        </li>
+        <li id="cgTab49">
+          <a href="https://stg-sandbox.cybergrants.com/verizon/esource/" target="_top">eSource</a>
+        </li>
+        <li id="cgTab8" class="activeTab">
+          <a href="adm.home" target="_top">Admin</a>
+        </li>
+        <li id="cgTab100">
+          <a href="srch.list?x_mod_id=100" target="_top">Employee Giving</a>
+        </li>
+        <li id="cgTab113">
+          <a href="srch.list?x_mod_id=113&x_action=Search" target="_top">Volunteer Events</a>
+        </li>
+      </ul>
+    </div>
+    <!-- end mainNav -->
+    <div class="navBottom"></div>
+  </div>
+  <!-- end cgHeader -->
+  <div id="cgMainContainer" class="hasCgHeader">
+    <form action="eg_config.edit_website_setup" method="post" name="eg_config_form">
+      <div id="cgtimeline">
+        <ul id="setupmenu">
+          <li><a href="eg_config.edit_global_setup" class="cgLink">Global Setup</a></li>
+          <li><a href="eg_config.edit_website_setup" class="currLink">Website Setup</a></li>
+          <li><a href="eg_config.edit_donor_login" class="cgLink">Donor Login</a></li>
+          <li><a href="eg_config.change_gterms" class="cgLink">Global Acceptance Terms</a></li>
+        </ul>
+      </div><br>
+      <fieldset>
+        <div class="formLegend">
+          <h2>Website Setup</h2>
+
+        </div>
+        <div class="formRequiredFieldNote"><span class="asterisk">*</span> indicates a required field</div>
+
+        <div class="formNotes">
+          Complete the fields below to configure your GrantMaker's overall employee giving campaign.
+        </div>
+
+        <script type="text/javascript">
+          /*<![CDATA[*/
+          /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false, undef:true, curly:true, browser:true, indent:4, maxerr:50, prototypejs:true,*/
+          var CyberGrants = CyberGrants || {};
+          CyberGrants.configTurnstileView = {
+            launchPromotion: function(table, key, paramArrKeys, paramArrValues) {
+              function changeModalState(state) {
+                function resetState() {
+                  $("confirmPublish").writeAttribute("onclick", originalOnClick);
+                  $("confirmPublish").removeClassName("publishDisabled");
+                  $("confirmPublish").addClassName("publishConfirm");
+                  $("cancelPublish").writeAttribute("value", "Cancel");
+                  $("cancelPublish").update("Cancel");
+                  return true;
+                }
+
+                function setModalToLockState() {
+                  $("confirmPublish").writeAttribute("onclick", "");
+                  $("confirmPublish").removeClassName("publishConfirm");
+                  $("confirmPublish").addClassName("publishDisabled");
+                  $("cancelPublish").writeAttribute("value", "Close");
+                  $("cancelPublish").update("Close");
+                  return true;
+                }
+
+                function setModalToRetryState() {
+                  resetState();
+                  return true;
+                }
+
+                switch (state) {
+                  case "lock":
+                    setModalToLockState();
+                    break;
+                  case "retry":
+                    setModalToRetryState();
+                    break;
+                  case "backupfailed":
+                    setModalToLockState();
+                    break;
+                  case "nochanges":
+                    setModalToLockState();
+                    break;
+                  case "nopermission":
+                    setModalToLockState();
+                    break;
+                  case "unhandledexception":
+                    setModalToLockState();
+                    break;
+                  default:
+                    throw new Error("Unknown modal state: " + state);
+                }
+
+              }
+
+              function actionMsgState(elm) {
+                var state = null;
+
+                if (elm.hasClassName("successPublished")) {
+                  state = "lock";
+                } else if (elm.hasClassName("errorPendingPublish")) {
+                  state = "retry";
+                } else if (elm.hasClassName("errorBackupFailed")) {
+                  state = "backupfailed";
+                } else if (elm.hasClassName("errorNoChanges")) {
+                  state = "nochanges";
+                } else if (elm.hasClassName("errorNoPermission")) {
+                  state = "nopermission";
+                } else if (elm.hasClassName("errorUnhandledException")) {
+                  state = "unhandledexception";
+                } else {
+                  throw new Error("Could not find state classnames.");
+                }
+
+                return state;
+              }
+
+              function offSetMaxHeight(elm1) {
+                // offset the maximum height of elm2, by elm1
+                if (elm1.getStyle("max-height")) {
+                  Element.setStyle(elm1, {
+                    maxHeight: "180px"
+                  });
+                } else {
+                  elm1.setStyle({
+                    height: "180px"
+                  });
+                }
+                return true;
+              }
+
+              function bannerMsgState(elm) {
+                var state = null;
+
+                if (elm.hasClassName("successPublished")) {
+                  state = "success";
+                }
+                return state;
+              }
+
+              function changeBannerState(elm, state) {
+                if (state === "success") {
+                  elm.update('<tbody><tr><td class="publishMsgCell">Congratulations! Changes have been published and will appear in production shortly.</td></tr></tbody>');
+                }
+                return true;
+              }
+
+              var promoteURL = "config_turnstile.launch_promotion";
+              var originalOnClick = $("confirmPublish").readAttribute("onclick");
+              var takeBackupVal = $("takeBackup").checked ? "Y" : "N";
+              $("action-msg").update("");
+              $("action-msg").addClassName("processingRequest");
+              changeModalState("lock");
+
+              new Ajax.Request(promoteURL, {
+                method: "post",
+                parameters: {
+                  x_table_name: table,
+                  x_key: key,
+                  x_take_backup: takeBackupVal,
+                  x_param_arr_keys: paramArrKeys,
+                  x_param_arr_values: paramArrValues
+                },
+                onComplete: function(response) {
+                  var json = response.responseText.evalJSON(false);
+                  var msg = json.hasOwnProperty("msg") ? json.msg : json.errors;
+                  $("action-msg").removeClassName("processingRequest");
+                  $("action-msg").replace(msg);
+
+                  changeModalState(actionMsgState($("action-msg")));
+                  changeBannerState($("pendingChangesBanner"), bannerMsgState($("action-msg")));
+                  offSetMaxHeight($("publishUpdates1"), $("action-msg"));
+                }
+              });
+            }
+          };
+          /*]]>*/
+        </script>
+        <div id="pendingChangesBannerWrapper">
+          <table id="pendingChangesBanner">
+            <tbody>
+              <tr>
+                <td class="publishIconCell"><img class="publishIconLarge" src="https://stg-sandbox.cybergrants.com/includes/images/1x1.gif" /></td>
+                <td class="publishMsgCell">You have pending changes that are not yet published. Would you like to publish these changes?</td>
+                <td class="publishButtonCell">
+                  <a href="config_turnstile_view.print_promote_modal?x_table_name=eg_configuration&x_key=3542" class="lbOn"><img class="publishButton" src="https://stg-sandbox.cybergrants.com/includes/images/1x1.gif" /></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <style>
+          .theme-toggler {
+            position: relative;
+          }
+          
+          .eg-theme-container,
+          .ee-theme-container {
+            transition: all 0.25s ease;
+            visibility: visible;
+            opacity: 1;
+            height: auto;
+            position: relative;
+            top: inherit;
+          }
+          
+          .eg-theme-container.unselected,
+          .ee-theme-container.unselected {
+            transition: all 0.25s ease;
+            visibility: hidden;
+            opacity: 0;
+            height: 0px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+        </style>
+        <script>
+          function displayThemePicker() {
+            if (jQuery("#eg-radio").is(":checked")) {
+              jQuery(".eg-theme-container").removeClass("unselected");
+              jQuery(".ee-theme-container").addClass("unselected");
+            } else if (jQuery("#ee-radio").is(":checked")) {
+              jQuery(".ee-theme-container").removeClass("unselected");
+              jQuery(".eg-theme-container").addClass("unselected");
+            }
+          }
+          jQuery(document).ready(function() {
+            displayThemePicker();
+            jQuery("#eg-radio").click(function() {
+              jQuery("#ee-radio").prop("checked", false);
+              displayThemePicker();
+            });
+            jQuery("#ee-radio").click(function() {
+              if (jQuery("#eg-radio").is(":checked")) {
+                jQuery('input:radio[name="x_web_component_id"]').eq(1).prop("checked", true);
+                displayThemePicker();
+              }
+            });
+          });
+        </script>
+        <div class="theme-picker-container">
+          <div class="egeetoggle">
+            <div class="formRow" id="formRowmobilePortalPages">
+              <h6 class="formLabel">Employee Program Style</h6>
+              <div class="formReadOnly">
+                <input type="radio" id="eg-radio" name="x_web_component_id" value="">
+                <label for="eg-radio">Employee Giving</label>
+                <input type="radio" id="ee-radio" checked="checked">
+                <label for="ee-radio">Employee Engagement</label>
+              </div>
+            </div>
+          </div>
+          <div class="theme-toggler">
+            <div class="eg-theme-container">
+              <div class="formLegend">
+                <h6>Employee Style Selection</h6>
+              </div>
+              <div class="formRow" id="formRowx_style_id">
+                <label for="x_style_id" class="formLabel">Donor Web Site Template:</label>
+                <div class="formFloater">
+
+                  <select name="x_style_id" size="1" class="formSelect" id="x_style_id" onchange="formChanged=true;">
+
+<option value="">&nbsp;</option>
+
+<option value="14674">(SANDBOX) Cash Style 2</option>
+<option value="16330">(SANDBOX) Employee Giving Style</option>
+<option value="17634" selected="selected">(SANDBOX) Empty Style</option>
+</select>
+
+
+                </div>
+              </div>
+            </div>
+            <div class="ee-theme-container">
+              <div class="formLegend">
+                <h6>Theme Color Selection</h6>
+              </div>
+
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            
+              
+              
+              
+<!--
+<script>
+
+  jQuery( document ).ready(function() {
+    function multipuleLogos(){
+      var inputLabel = jQuery('#x_logo_path_label');
+      var inputField = jQuery('#x_logo_path');
+      console.log(inputLabel);
+      var logopath = jQuery('#x_logo_path').val();
+      console.log(logopath);
+      var logo = jQuery('.logo-placeholder img');
+      console.log(logo);
+      function changeLogoPath() {
+        jQuery(logo).attr('src', logopath);
+      }
+      jQuery(inputLabel).click(function () {
+        changeLogoPath();
+      });
+      jQuery(inputField).submit(function (event) {
+        event.preventDefault();
+        changeLogoPath();
+      });
+      if (jQuery(logopath).length > 0 && value != 'input-path') {
+        console.log('it is longer');
+        console.log((inputField).length);
+        changeLogoPath();
+      }
+    }
+    
+  });
+</script>
+ 
+<style>
+  .logo-placeholder img{
+    max-width: 200px;
+    max-height: 104px;
+    margin: 10px 0px;
+  }
+</style>
+ <div class="formRow" id="formRowx_logo_path">
+  <label for="x_logo_path" class="formLabel">Client/Program Logo:
+    <div class="cg-tooltip-icon">
+      <a data-html="true" title="<p>The following general guidelines apply:</p><ul><li>Minimum image width should be 900px</li><li>Background should be white or transparent</li><li>Logo should be cropped up to the left and right edges of the image</li><li>File format should be png or jpg</li></ul>" tabindex=0><span class="hintText">(?)</span></a>
+    </div>
+  </label>
+  
+  <div class="formFloater">
+    <div class="logo-placeholder">
+      <img src="https://imagga.com/static/images/upload.svg" onerror="this.onerror=''; this.src='http://www.clker.com/cliparts/J/h/C/1/o/C/broken-file-icon-hi.png';">
+    </div>
+    <div class="descriptionText description">
+      <p>Provide the relative path to the image hosted by CyberGrants (requires that the image first be uploaded to the CyberGrants server by staff), e.g. "/client/eg_logo.png".</p>
+    </div>
+    <input name="x_logo_path" class="formInput" maxlength="255" value="" id="x_logo_path" type="text"><label class="formButton" id="x_logo_path_label" for="x_logo_path">Preview</label>
+  </div>
+</div>
+-->
+<style>
+  .logo-placeholder img{
+    max-width: 200px;
+    max-height: 104px;
+    margin: 10px 0px;
+  }
+</style>
+<!-- //////////  End Just For Working Code  /////////// -->
+
+  <div class="formRow" id="formRowx_logo_path">
+    <label for="x_logo_path" class="formLabel">Client/Program Logo:
+      <div class="cg-tooltip-icon">
+        <a data-html="true" title="<p>The following general guidelines apply:</p><ul><li>Minimum image width should be 900px</li><li>Background should be white or transparent</li><li>Logo should be cropped up to the left and right edges of the image</li><li>File format should be png or jpg</li></ul>" tabindex=0><span class="hintText">(?)</span></a>
+      </div>
+    </label>
+
+    <div class="formFloater">
+      <div class="logo-placeholder">
+        <img src="path-to-'upload-your-image'-image" onerror="this.onerror=''; this.src='pathe-to-broken-image-image';" />
+      </div>
+      <div class="descriptionText description">
+        <p>Provide the relative path to the image hosted by CyberGrants (requires that the image first be uploaded to the CyberGrants server by staff), e.g. "/client/eg_logo.png".</p>
+      </div>
+      <input class="formInput" maxlength="255" id="logo-path-with-unique-identifier" type="text">
+      <label class="formButton" for="logo-path-with-unique-identifier">Preview</label>
+      <div>
+        <button class="formButton add-alternate-logo">Add Alternate Logo(s)</button>
+        <button class="formButton delete-alternate-logo">Delete This Logo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="formRow" id="formRowx_logo_path">
+    <label class="formLabel">Configure alternate branding by:</label>
+    <div class="formFloater">
+      <div>
+        <select class="formSelect">
+          <option value="">&nbsp;</option>
+          <option value="###">Country</option>
+          <option value="###">Something</option>
+          <option value="###">Something Else</option>
+        </select>
+      </div>
+      <div class="logo-placeholder">
+        <img src="path-to-'upload-your-image'-image" onerror="this.onerror=''; this.src='pathe-to-broken-image-image';" />
+      </div>
+    </div>
+    <label class="formLabel">Please choose a country:</label>
+    <div class="formFloater">
+      <select class="formSelectMulti" multiple="multiple">
+        <option value="###">Country 1</option>
+        <option value="####" selected="selected">Country 2</option>
+        <option value="#####" selected="selected">Country 3</option>
+      </select>
+    </div>
+    <label class="formLabel">Alternate client/program logo:</label>
+    <div class="formFloater">
+      <input class="formInput" maxlength="255" id="logo-path-with-unique-identifier" type="text">
+      <label class="formButton" for="logo-path-with-unique-identifier">Preview</label>
+      <div>
+        <button class="formButton add-alternate-logo">Add Alternate Logo(s)</button>
+        <button class="formButton delete-alternate-logo">Delete This Logo</button>
+      </div>
+    </div>
+  </div>
+</div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              <div class="formRow" id="formRowthemeList">
+                <h3 class="formLabel">Web Site Theme</h3>
+                <div class="formReadOnly">
+                  <div class="descriptionText description">Select a theme to enable new EE features and disable external styles.</div>
+                  <table id="component_table">
+                    <thead>
+                      <tr>
+                        <th class="tdCenter">Select</th>
+                        <th>Theme Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="6">
+                        </td>
+                        <td>Atlantic Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="11">
+                        </td>
+                        <td>Casablanca Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="5">
+                        </td>
+                        <td>Chianti Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="7">
+                        </td>
+                        <td>Fairbanks Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="10">
+                        </td>
+                        <td>Moab Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="8">
+                        </td>
+                        <td>Pacific Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="radio" name="x_web_component_id" value="9" checked="checked">
+                        </td>
+                        <td>Wicklow Theme</td>
+                        <td>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="formRowButton">
+          <input type="submit" class="formButton" name="x_action" id="x_save" value="Save" />
+        </div>
+      </fieldset>
+    </form>
+    <!-- 0.190 at 2017-03-24 10:47:15 -->
+  </div>
+</body>
+
+<head>
+  <meta http-equiv="expires" content="Mon, 10 Jan 1999 08:00:00 GMT" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Cache-Control" content="no-cache,no-Store" />
+</head>
+
+</html>
