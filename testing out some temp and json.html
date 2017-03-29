@@ -1,0 +1,143 @@
+<div class="entry">
+  <img src="{{default}}" />
+  <div><select>{{#each country}}
+<option {{isSelected}}>{{name}}</option>
+{{/each}}</select></div>
+</div>
+
+
+{
+  default: "http://bit.ly/2o4JVgD",
+  country: [
+    { name: "Canada", isSelected: "" },
+    { name: "USA USA USA", isSelected: "selected" },
+    { name: "Canada", isSelected: "" },
+  ],
+  body: "My first post. Wheeeee!"
+}
+
+
+
+
+
+<div class="entry">
+  <img src="{{default}}" />
+  <div><select>{{#each defineby}}
+<option {{isSelected}}>{{name}}</option>
+{{/each}}</select></div>
+
+<div>
+  {{#if defineby/isSelected}}
+    <select multiple>
+      <option>{{#each defineby/configuration/options/name}}</option
+    </select>
+<img src="{{defineby/configuration/url}}"
+  {{/if}}
+</div>
+
+{
+  default: "http://bit.ly/2o4JVgD",
+  defineby: [
+    { name: "country", isSelected: "", configuration: [
+      { options: [
+        { name: "Canada", isSelected: ""},
+        { name: "USA USA USA", isSelected: "selected" },
+        { name: "Canada", isSelected: "" }
+      ], url: "http://bit.ly/2owaB6G" }
+    ]},
+    { name: "USA USA USA", isSelected: "selected" },
+    { name: "Canada", isSelected: "" },
+  ],
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="entry">
+  <img src="{{default}}" />
+  <div><select>{{#each defineby}}
+<option {{#if isSelected}}selected{{/if}}>{{name}}</option>
+{{/each}}</select></div>
+
+<div>
+  {{#each defineby}}
+    {{#if isSelected}}
+      {{#each configuration}}
+        {{#each options}}
+          <select multiple>
+            <option {{#if isSelected}}selected{{/if}}>{{name}}</option>
+          </select>
+        {{/each}}
+        <img src="{{url}}"
+      {{/each}}
+    {{/if}}
+  {{/each}}
+</div>
+
+
+
+{
+  default: "http://bit.ly/2o4JVgD",
+  defineby: [
+    { name: "country", isSelected: true, configuration: [
+      { options: [
+        { name: "Canada", isSelected: false},
+        { name: "USA USA USA", isSelected: true },
+        { name: "Canada", isSelected: false }
+      ], url: "http://bit.ly/2owaB6G" }
+    ]},
+    { name: "users", isSelected: false, configuration: [
+      { options: [
+        { name: "bob", isSelected: false},
+        { name: "max", isSelected: true },
+        { name: "sue", isSelected: false }
+      ], url: "http://bit.ly/2owaB6G" }
+    ]},
+    { name: "animal", isSelected: false, configuration: [
+      { options: [
+        { name: "dog", isSelected: false},
+        { name: "cat", isSelected: true },
+        { name: "bearshark", isSelected: false }
+      ], url: "http://bit.ly/2owaB6G" }
+    ]},
+  ],
+}
+
+
+
+
+
+
+
+

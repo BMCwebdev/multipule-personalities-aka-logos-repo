@@ -1,3 +1,39 @@
+<div>
+  <img src="{{defaultLogoUrl}}" />
+  <input value="{{defaultLogoUrl}}" type="text"/>
+</div>
+<div>
+  <select>
+  {{#each brandByOptions}}
+    <option data-id="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected {{/ifIdIsBrandBy}}>{{this.name}}</option>
+  {{/each}}
+  </select>
+</div>
+<div>
+  {{#each logos}}
+    <div>
+      <div>
+        <img src="{{this.url}}" />
+      </div>
+      <div>
+        <select class="formSelectMulti" multiple="multiple">
+          {{#each ../brandByOptions}}
+            {{if-helper-is-id-same-as-brand-by-if-so}}
+              <option value-brandingId? selected?>{{#each this.options.name}}</option>
+            {{/if}}
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  {{/each}}
+
+Handlebars.registerHelper('ifIdIsBrandBy', function(thisID, selectedID, options){
+  if (thisID === selectedID) {
+    return options.fn(this);
+  };
+});
+
+
 {
   defaultLogoUrl: "http://bit.ly/2o7oiMQ",
   brandBy: 2,
