@@ -1,0 +1,33 @@
+<div>
+  <img src="{{defaultLogoUrl}}" />
+  <input value="{{defaultLogoUrl}}" type="text" />
+</div>
+<div>
+  <select>
+    {{#each brandByOptions}}
+      <option data-id="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected {{/ifIdIsBrandBy}}>{{this.name}}</option>
+    {{/each}}
+  </select>
+</div>
+<div>
+  {{#each logos as |logo|}}
+    <div>
+      <div>
+        <img src="{{logo.url}}" />
+      </div>
+      <div>
+        <select class="formSelectMulti" multiple="multiple">
+          {{#each ../brandByOptions}}
+            {{#ifIdIsBrandBy this.id ../../brandBy}}   
+              {{#each options}}
+                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected{{/ifMatchToOptions}}>
+                  {{this.name}}
+                </option>
+              {{/each}}
+            {{/ifIdIsBrandBy }}
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  {{/each}}
+</div>
