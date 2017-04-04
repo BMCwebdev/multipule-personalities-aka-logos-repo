@@ -1,0 +1,801 @@
+{
+  "defaultLogoUrl": "/includes/images/logo-acme-global_908x132.png",
+  "brandBy": "x_donor_country_id",
+  "brandByOptions": [{
+    "id": "x_donor_country_id",
+    "name": "Donor Country",
+    "options": [{
+      "brandingId": "N/A",
+      "name": "(Not Applicable)"
+    }, {
+      "brandingId": "AF",
+      "name": "Afghanistan"
+    }, {
+      "brandingId": "AL",
+      "name": "Albania"
+    }, {
+      "brandingId": "DZ",
+      "name": "Algeria"
+    }, {
+      "brandingId": "AS",
+      "name": "American Samoa"
+    }, {
+      "brandingId": "AD",
+      "name": "Andorra"
+    }, {
+      "brandingId": "AO",
+      "name": "Angola"
+    }, {
+      "brandingId": "AI",
+      "name": "Anguilla"
+    }, {
+      "brandingId": "AQ",
+      "name": "Antarctica"
+    }, {
+      "brandingId": "AG",
+      "name": "Antigua And Barbuda"
+    }, {
+      "brandingId": "AR",
+      "name": "Argentina"
+    }, {
+      "brandingId": "AM",
+      "name": "Armenia"
+    }, {
+      "brandingId": "AW",
+      "name": "Aruba"
+    }, {
+      "brandingId": "AU",
+      "name": "Australia"
+    }, {
+      "brandingId": "AT",
+      "name": "Austria"
+    }, {
+      "brandingId": "AZ",
+      "name": "Azerbaijan"
+    }, {
+      "brandingId": "BS",
+      "name": "Bahamas"
+    }, {
+      "brandingId": "BH",
+      "name": "Bahrain"
+    }, {
+      "brandingId": "BD",
+      "name": "Bangladesh"
+    }, {
+      "brandingId": "BB",
+      "name": "Barbados"
+    }, {
+      "brandingId": "BY",
+      "name": "Belarus"
+    }, {
+      "brandingId": "BE",
+      "name": "Belgium"
+    }, {
+      "brandingId": "BZ",
+      "name": "Belize"
+    }, {
+      "brandingId": "BJ",
+      "name": "Benin"
+    }, {
+      "brandingId": "BM",
+      "name": "Bermuda"
+    }, {
+      "brandingId": "BT",
+      "name": "Bhutan"
+    }, {
+      "brandingId": "BO",
+      "name": "Bolivia, Plurinational State Of"
+    }, {
+      "brandingId": "BQ",
+      "name": "Bonaire, Sint Eustatius And Saba"
+    }, {
+      "brandingId": "BA",
+      "name": "Bosnia And Herzegovina"
+    }, {
+      "brandingId": "BW",
+      "name": "Botswana"
+    }, {
+      "brandingId": "BV",
+      "name": "Bouvet Island"
+    }, {
+      "brandingId": "BR",
+      "name": "Brazil"
+    }, {
+      "brandingId": "IO",
+      "name": "British Indian Ocean Territory"
+    }, {
+      "brandingId": "BN",
+      "name": "Brunei Darussalam"
+    }, {
+      "brandingId": "BG",
+      "name": "Bulgaria"
+    }, {
+      "brandingId": "BF",
+      "name": "Burkina Faso"
+    }, {
+      "brandingId": "BI",
+      "name": "Burundi"
+    }, {
+      "brandingId": "KH",
+      "name": "Cambodia"
+    }, {
+      "brandingId": "CM",
+      "name": "Cameroon"
+    }, {
+      "brandingId": "CA",
+      "name": "Canada"
+    }, {
+      "brandingId": "CV",
+      "name": "Cape Verde"
+    }, {
+      "brandingId": "KY",
+      "name": "Cayman Islands"
+    }, {
+      "brandingId": "CF",
+      "name": "Central African Republic"
+    }, {
+      "brandingId": "TD",
+      "name": "Chad"
+    }, {
+      "brandingId": "CL",
+      "name": "Chile"
+    }, {
+      "brandingId": "CN",
+      "name": "China"
+    }, {
+      "brandingId": "CX",
+      "name": "Christmas Island"
+    }, {
+      "brandingId": "CC",
+      "name": "Cocos (Keeling) Islands"
+    }, {
+      "brandingId": "CO",
+      "name": "Colombia"
+    }, {
+      "brandingId": "KM",
+      "name": "Comoros"
+    }, {
+      "brandingId": "CG",
+      "name": "Congo"
+    }, {
+      "brandingId": "CD",
+      "name": "Congo, The Democratic Republic Of The"
+    }, {
+      "brandingId": "CK",
+      "name": "Cook Islands"
+    }, {
+      "brandingId": "CR",
+      "name": "Costa Rica"
+    }, {
+      "brandingId": "HR",
+      "name": "Croatia"
+    }, {
+      "brandingId": "CU",
+      "name": "Cuba"
+    }, {
+      "brandingId": "CW",
+      "name": "Cura\u00E7ao"
+    }, {
+      "brandingId": "CY",
+      "name": "Cyprus"
+    }, {
+      "brandingId": "CZ",
+      "name": "Czech Republic"
+    }, {
+      "brandingId": "CI",
+      "name": "C\u00F4te D'Ivoire"
+    }, {
+      "brandingId": "DK",
+      "name": "Denmark"
+    }, {
+      "brandingId": "DJ",
+      "name": "Djibouti"
+    }, {
+      "brandingId": "DM",
+      "name": "Dominica"
+    }, {
+      "brandingId": "DO",
+      "name": "Dominican Republic"
+    }, {
+      "brandingId": "EC",
+      "name": "Ecuador"
+    }, {
+      "brandingId": "EG",
+      "name": "Egypt"
+    }, {
+      "brandingId": "SV",
+      "name": "El Salvador"
+    }, {
+      "brandingId": "GQ",
+      "name": "Equatorial Guinea"
+    }, {
+      "brandingId": "ER",
+      "name": "Eritrea"
+    }, {
+      "brandingId": "EE",
+      "name": "Estonia"
+    }, {
+      "brandingId": "ET",
+      "name": "Ethiopia"
+    }, {
+      "brandingId": "FK",
+      "name": "Falkland Islands (Malvinas)"
+    }, {
+      "brandingId": "FO",
+      "name": "Faroe Islands"
+    }, {
+      "brandingId": "FJ",
+      "name": "Fiji"
+    }, {
+      "brandingId": "FI",
+      "name": "Finland"
+    }, {
+      "brandingId": "FR",
+      "name": "France"
+    }, {
+      "brandingId": "GF",
+      "name": "French Guiana"
+    }, {
+      "brandingId": "PF",
+      "name": "French Polynesia"
+    }, {
+      "brandingId": "TF",
+      "name": "French Southern Territories"
+    }, {
+      "brandingId": "GA",
+      "name": "Gabon"
+    }, {
+      "brandingId": "GM",
+      "name": "Gambia"
+    }, {
+      "brandingId": "GE",
+      "name": "Georgia"
+    }, {
+      "brandingId": "DE",
+      "name": "Germany"
+    }, {
+      "brandingId": "GH",
+      "name": "Ghana"
+    }, {
+      "brandingId": "GI",
+      "name": "Gibraltar"
+    }, {
+      "brandingId": "GR",
+      "name": "Greece"
+    }, {
+      "brandingId": "GL",
+      "name": "Greenland"
+    }, {
+      "brandingId": "GD",
+      "name": "Grenada"
+    }, {
+      "brandingId": "GP",
+      "name": "Guadeloupe"
+    }, {
+      "brandingId": "GU",
+      "name": "Guam"
+    }, {
+      "brandingId": "GT",
+      "name": "Guatemala"
+    }, {
+      "brandingId": "GG",
+      "name": "Guernsey"
+    }, {
+      "brandingId": "GN",
+      "name": "Guinea"
+    }, {
+      "brandingId": "GW",
+      "name": "Guinea-Bissau"
+    }, {
+      "brandingId": "GY",
+      "name": "Guyana"
+    }, {
+      "brandingId": "HT",
+      "name": "Haiti"
+    }, {
+      "brandingId": "HM",
+      "name": "Heard Island And Mcdonald Islands"
+    }, {
+      "brandingId": "VA",
+      "name": "Holy See (Vatican City State)"
+    }, {
+      "brandingId": "HN",
+      "name": "Honduras"
+    }, {
+      "brandingId": "HK",
+      "name": "Hong Kong"
+    }, {
+      "brandingId": "HU",
+      "name": "Hungary"
+    }, {
+      "brandingId": "IS",
+      "name": "Iceland"
+    }, {
+      "brandingId": "IN",
+      "name": "India"
+    }, {
+      "brandingId": "ID",
+      "name": "Indonesia"
+    }, {
+      "brandingId": "IR",
+      "name": "Iran, Islamic Republic Of"
+    }, {
+      "brandingId": "IQ",
+      "name": "Iraq"
+    }, {
+      "brandingId": "IE",
+      "name": "Ireland"
+    }, {
+      "brandingId": "IM",
+      "name": "Isle Of Man"
+    }, {
+      "brandingId": "IL",
+      "name": "Israel"
+    }, {
+      "brandingId": "IT",
+      "name": "Italy"
+    }, {
+      "brandingId": "JM",
+      "name": "Jamaica"
+    }, {
+      "brandingId": "JP",
+      "name": "Japan"
+    }, {
+      "brandingId": "JE",
+      "name": "Jersey"
+    }, {
+      "brandingId": "JO",
+      "name": "Jordan"
+    }, {
+      "brandingId": "KZ",
+      "name": "Kazakhstan"
+    }, {
+      "brandingId": "KE",
+      "name": "Kenya"
+    }, {
+      "brandingId": "KI",
+      "name": "Kiribati"
+    }, {
+      "brandingId": "KP",
+      "name": "Korea, Democratic People'S Republic Of"
+    }, {
+      "brandingId": "KR",
+      "name": "Korea, Republic Of"
+    }, {
+      "brandingId": "KW",
+      "name": "Kuwait"
+    }, {
+      "brandingId": "KG",
+      "name": "Kyrgyzstan"
+    }, {
+      "brandingId": "LA",
+      "name": "Lao People'S Democratic Republic"
+    }, {
+      "brandingId": "LV",
+      "name": "Latvia"
+    }, {
+      "brandingId": "LB",
+      "name": "Lebanon"
+    }, {
+      "brandingId": "LS",
+      "name": "Lesotho"
+    }, {
+      "brandingId": "LR",
+      "name": "Liberia"
+    }, {
+      "brandingId": "LY",
+      "name": "Libya"
+    }, {
+      "brandingId": "LI",
+      "name": "Liechtenstein"
+    }, {
+      "brandingId": "LT",
+      "name": "Lithuania"
+    }, {
+      "brandingId": "LU",
+      "name": "Luxembourg"
+    }, {
+      "brandingId": "MO",
+      "name": "Macao"
+    }, {
+      "brandingId": "MK",
+      "name": "Macedonia, The Former Yugoslav Republic Of"
+    }, {
+      "brandingId": "MG",
+      "name": "Madagascar"
+    }, {
+      "brandingId": "MW",
+      "name": "Malawi"
+    }, {
+      "brandingId": "MY",
+      "name": "Malaysia"
+    }, {
+      "brandingId": "MV",
+      "name": "Maldives"
+    }, {
+      "brandingId": "ML",
+      "name": "Mali"
+    }, {
+      "brandingId": "MT",
+      "name": "Malta"
+    }, {
+      "brandingId": "MH",
+      "name": "Marshall Islands"
+    }, {
+      "brandingId": "MQ",
+      "name": "Martinique"
+    }, {
+      "brandingId": "MR",
+      "name": "Mauritania"
+    }, {
+      "brandingId": "MU",
+      "name": "Mauritius"
+    }, {
+      "brandingId": "YT",
+      "name": "Mayotte"
+    }, {
+      "brandingId": "MX",
+      "name": "Mexico"
+    }, {
+      "brandingId": "FM",
+      "name": "Micronesia, Federated States Of"
+    }, {
+      "brandingId": "MD",
+      "name": "Moldova, Republic Of"
+    }, {
+      "brandingId": "MC",
+      "name": "Monaco"
+    }, {
+      "brandingId": "MN",
+      "name": "Mongolia"
+    }, {
+      "brandingId": "ME",
+      "name": "Montenegro"
+    }, {
+      "brandingId": "MS",
+      "name": "Montserrat"
+    }, {
+      "brandingId": "MA",
+      "name": "Morocco"
+    }, {
+      "brandingId": "MZ",
+      "name": "Mozambique"
+    }, {
+      "brandingId": "MM",
+      "name": "Myanmar"
+    }, {
+      "brandingId": "NA",
+      "name": "Namibia"
+    }, {
+      "brandingId": "NR",
+      "name": "Nauru"
+    }, {
+      "brandingId": "NP",
+      "name": "Nepal"
+    }, {
+      "brandingId": "NL",
+      "name": "Netherlands"
+    }, {
+      "brandingId": "NC",
+      "name": "New Caledonia"
+    }, {
+      "brandingId": "NZ",
+      "name": "New Zealand"
+    }, {
+      "brandingId": "NI",
+      "name": "Nicaragua"
+    }, {
+      "brandingId": "NE",
+      "name": "Niger"
+    }, {
+      "brandingId": "NG",
+      "name": "Nigeria"
+    }, {
+      "brandingId": "NU",
+      "name": "Niue"
+    }, {
+      "brandingId": "NF",
+      "name": "Norfolk Island"
+    }, {
+      "brandingId": "MP",
+      "name": "Northern Mariana Islands"
+    }, {
+      "brandingId": "NO",
+      "name": "Norway"
+    }, {
+      "brandingId": "OM",
+      "name": "Oman"
+    }, {
+      "brandingId": "PK",
+      "name": "Pakistan"
+    }, {
+      "brandingId": "PW",
+      "name": "Palau"
+    }, {
+      "brandingId": "PS",
+      "name": "Palestinian Territory, Occupied"
+    }, {
+      "brandingId": "PA",
+      "name": "Panama"
+    }, {
+      "brandingId": "PG",
+      "name": "Papua New Guinea"
+    }, {
+      "brandingId": "PY",
+      "name": "Paraguay"
+    }, {
+      "brandingId": "PE",
+      "name": "Peru"
+    }, {
+      "brandingId": "PH",
+      "name": "Philippines"
+    }, {
+      "brandingId": "PN",
+      "name": "Pitcairn"
+    }, {
+      "brandingId": "PL",
+      "name": "Poland"
+    }, {
+      "brandingId": "PT",
+      "name": "Portugal"
+    }, {
+      "brandingId": "PR",
+      "name": "Puerto Rico"
+    }, {
+      "brandingId": "QA",
+      "name": "Qatar"
+    }, {
+      "brandingId": "RO",
+      "name": "Romania"
+    }, {
+      "brandingId": "RU",
+      "name": "Russian Federation"
+    }, {
+      "brandingId": "RW",
+      "name": "Rwanda"
+    }, {
+      "brandingId": "RE",
+      "name": "R\u00E9union"
+    }, {
+      "brandingId": "BL",
+      "name": "Saint Barth\u00E9lemy"
+    }, {
+      "brandingId": "SH",
+      "name": "Saint Helena, Ascension And Tristan Da Cunha"
+    }, {
+      "brandingId": "KN",
+      "name": "Saint Kitts And Nevis"
+    }, {
+      "brandingId": "LC",
+      "name": "Saint Lucia"
+    }, {
+      "brandingId": "MF",
+      "name": "Saint Martin (French Part)"
+    }, {
+      "brandingId": "PM",
+      "name": "Saint Pierre And Miquelon"
+    }, {
+      "brandingId": "VC",
+      "name": "Saint Vincent And The Grenadines"
+    }, {
+      "brandingId": "WS",
+      "name": "Samoa"
+    }, {
+      "brandingId": "SM",
+      "name": "San Marino"
+    }, {
+      "brandingId": "ST",
+      "name": "Sao Tome And Principe"
+    }, {
+      "brandingId": "SA",
+      "name": "Saudi Arabia"
+    }, {
+      "brandingId": "SN",
+      "name": "Senegal"
+    }, {
+      "brandingId": "RS",
+      "name": "Serbia"
+    }, {
+      "brandingId": "SC",
+      "name": "Seychelles"
+    }, {
+      "brandingId": "SL",
+      "name": "Sierra Leone"
+    }, {
+      "brandingId": "SG",
+      "name": "Singapore"
+    }, {
+      "brandingId": "SX",
+      "name": "Sint Maarten (Dutch Part)"
+    }, {
+      "brandingId": "SK",
+      "name": "Slovakia"
+    }, {
+      "brandingId": "SI",
+      "name": "Slovenia"
+    }, {
+      "brandingId": "SB",
+      "name": "Solomon Islands"
+    }, {
+      "brandingId": "SO",
+      "name": "Somalia"
+    }, {
+      "brandingId": "ZA",
+      "name": "South Africa"
+    }, {
+      "brandingId": "GS",
+      "name": "South Georgia And The South Sandwich Islands"
+    }, {
+      "brandingId": "SS",
+      "name": "South Sudan"
+    }, {
+      "brandingId": "ES",
+      "name": "Spain"
+    }, {
+      "brandingId": "LK",
+      "name": "Sri Lanka"
+    }, {
+      "brandingId": "SD",
+      "name": "Sudan"
+    }, {
+      "brandingId": "SR",
+      "name": "Suriname"
+    }, {
+      "brandingId": "SJ",
+      "name": "Svalbard And Jan Mayen"
+    }, {
+      "brandingId": "SZ",
+      "name": "Swaziland"
+    }, {
+      "brandingId": "SE",
+      "name": "Sweden"
+    }, {
+      "brandingId": "CH",
+      "name": "Switzerland"
+    }, {
+      "brandingId": "SY",
+      "name": "Syrian Arab Republic"
+    }, {
+      "brandingId": "TW",
+      "name": "Taiwan, Province Of China"
+    }, {
+      "brandingId": "TJ",
+      "name": "Tajikistan"
+    }, {
+      "brandingId": "TZ",
+      "name": "Tanzania, United Republic Of"
+    }, {
+      "brandingId": "TH",
+      "name": "Thailand"
+    }, {
+      "brandingId": "TL",
+      "name": "Timor-Leste"
+    }, {
+      "brandingId": "TG",
+      "name": "Togo"
+    }, {
+      "brandingId": "TK",
+      "name": "Tokelau"
+    }, {
+      "brandingId": "TO",
+      "name": "Tonga"
+    }, {
+      "brandingId": "TT",
+      "name": "Trinidad And Tobago"
+    }, {
+      "brandingId": "TN",
+      "name": "Tunisia"
+    }, {
+      "brandingId": "TR",
+      "name": "Turkey"
+    }, {
+      "brandingId": "TM",
+      "name": "Turkmenistan"
+    }, {
+      "brandingId": "TC",
+      "name": "Turks And Caicos Islands"
+    }, {
+      "brandingId": "TV",
+      "name": "Tuvalu"
+    }, {
+      "brandingId": "UG",
+      "name": "Uganda"
+    }, {
+      "brandingId": "UA",
+      "name": "Ukraine"
+    }, {
+      "brandingId": "AE",
+      "name": "United Arab Emirates"
+    }, {
+      "brandingId": "GB",
+      "name": "United Kingdom"
+    }, {
+      "brandingId": "US",
+      "name": "United States"
+    }, {
+      "brandingId": "UM",
+      "name": "United States Minor Outlying Islands"
+    }, {
+      "brandingId": "UY",
+      "name": "Uruguay"
+    }, {
+      "brandingId": "UZ",
+      "name": "Uzbekistan"
+    }, {
+      "brandingId": "VU",
+      "name": "Vanuatu"
+    }, {
+      "brandingId": "VE",
+      "name": "Venezuela, Bolivarian Republic Of"
+    }, {
+      "brandingId": "VN",
+      "name": "Viet Nam"
+    }, {
+      "brandingId": "VG",
+      "name": "Virgin Islands, British"
+    }, {
+      "brandingId": "VI",
+      "name": "Virgin Islands, U.S."
+    }, {
+      "brandingId": "WF",
+      "name": "Wallis And Futuna"
+    }, {
+      "brandingId": "EH",
+      "name": "Western Sahara"
+    }, {
+      "brandingId": "YE",
+      "name": "Yemen"
+    }, {
+      "brandingId": "ZM",
+      "name": "Zambia"
+    }, {
+      "brandingId": "ZW",
+      "name": "Zimbabwe"
+    }, {
+      "brandingId": "AX",
+      "name": "\u00C5land Islands"
+    }]
+  }, {
+    "id": "x_emp_type_id",
+    "name": "Employee Type",
+    "options": [{
+      "brandingId": 1209,
+      "name": "Full-Time"
+    }, {
+      "brandingId": 2229,
+      "name": "Friend or Family"
+    }, {
+      "brandingId": 1210,
+      "name": "Retiree"
+    }, {
+      "brandingId": 1285,
+      "name": "General Volunteer"
+    }]
+  }, {
+    "id": "x_company_id",
+    "name": "Company",
+    "options": [{
+      "brandingId": 524091,
+      "name": "New England"
+    }, {
+      "brandingId": 524092,
+      "name": "Tri-State Area"
+    }, {
+      "brandingId": 524093,
+      "name": "Mid-Atlantic"
+    }, {
+      "brandingId": 524094,
+      "name": "SouthEastern Region"
+    }, {
+      "brandingId": 524095,
+      "name": "Pacific Region"
+    }]
+  }],
+  "logos": [{
+    "brandingIds": ["CA"],
+    "url": "/ge/images/logo-red-cross.jpg"
+  }, {
+    "brandingIds": ["MX", "AR"],
+    "url": "/ge/images/logo-save-the-children.jpg"
+  }]
+}

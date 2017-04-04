@@ -1,74 +1,74 @@
 {
-  defaultLogoUrl: "http://bit.ly/2o7oiMQ",
-  brandBy: 2,
-  brandByOptions: [
+  "defaultLogoUrl" : "http://bit.ly/2o7oiMQ",
+  "brandBy" : 2,
+  "brandByOptions" : [
       {
-        id: 1,
-        name: "country",
-        options: [
+        "id": 1,
+        "name": "country",
+        "options": [
           {
-            name:"canada",
-            brandingId: 1
+            "name":"canada",
+            "brandingId": 1
           },
           {
-            name: "USA USA USA",
-            brandingId: 2
+            "name": "USA USA USA",
+            "brandingId": 2
           },
           {
-            name: "Tomorrow Land",
-            brandingId: 3
+            "name": "Tomorrow Land",
+            "brandingId": 3
           }
         ]
       },
       {
-        id: 2,
-        name: "animal",
-        options: [
+        "id": 2,
+        "name": "animal",
+        "options": [
           {
-            name: "dog",
-            brandingId: 4
+            "name": "dog",
+            "brandingId": 4
           },
           {
-            name: "cat",
-            brandingId: 5
+            "name": "cat",
+            "brandingId": 5
           },
           {
-            name: "bearshark",
-            brandingId: 6
+            "name": "bearshark",
+            "brandingId": 6
           }
         ]
       },
       {
-        id: 3,
-        name: "mealtimes",
-        options: [
+        "id": 3,
+        "name": "mealtimes",
+        "options": [
           {
-            name: "Second breakfast",
-            brandingId: 7
+            "name": "Second breakfast",
+            "brandingId": 7
           },
           {
-            name: "Elevenses",
-            brandingId: 8
+            "name": "Elevenses",
+            "brandingId": 8
           },
           {
-            name: "Afternoon tea",
-            brandingId: 9
+            "name": "Afternoon tea",
+            "brandingId": 9
           }
         ]
       }
     ],
-    logos: [
+    "logos": [
       {
-        brandingIds:[1,3],
-        url: "http://bit.ly/2o7oiMQ"
+        "brandingIds": [4,6],
+        "url": "http://bit.ly/2o7oiMQ"
       },
       {
-        brandingIds:[2],
-        url: "http://bit.ly/2nCcHof"
+        "brandingIds": [5],
+        "url": "http://bit.ly/2nCcHof"
       },
       {
-        brandingIds:[1,2],
-        url: "http://bit.ly/2o7LdaJ"
+        "brandingIds": [5,6],
+        "url": "http://bit.ly/2o7LdaJ"
       }
     ]
 }
