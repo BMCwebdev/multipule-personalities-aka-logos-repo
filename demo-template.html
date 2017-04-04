@@ -1,6 +1,6 @@
 <div>
-  <img src="{{defaultLogoUrl}}" />
-  <input value="{{defaultLogoUrl}}" type="text" />
+  <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
+  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" /><button id="logo-preview-button" class="button logo-default">Preview</button>
 </div>
 <div>
   <select>
@@ -9,11 +9,13 @@
     {{/each}}
   </select>
 </div>
-<div>
+<div class="additionalLogosContainer">
   {{#each logos as |logo|}}
     <div>
       <div>
-        <img src="{{logo.url}}" />
+        <img src="{{logo.url}}" class="logo-{{@key}}"/>
+        <input value="{{logo.url}}" type="text" class="logo-{{@key}}" />
+        <button class="preview-button logo-{{@key}}">Preview</button>
       </div>
       <div>
         <select class="formSelectMulti" multiple="multiple">
@@ -28,6 +30,9 @@
           {{/each}}
         </select>
       </div>
+      <button class="button logo-{{@key}}">Delete</button>
     </div>
   {{/each}}
 </div>
+
+
