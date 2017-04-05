@@ -14,17 +14,17 @@ jQuery(document).ready(function(){
     };
   });
 
-  var template = "";
+  var template = {};
   jQuery.get('demo-template.html', function(templateData) {
     template = Handlebars.compile(templateData);
     renderLogos();
   });
   
   function renderLogos() {
-    var logoContainer = jQuery('[data-portlet-container="alternativeLogos"]');
+    var logoContainer = jQuery('#alternateLogo');
     var elementID = (logoContainer).attr("id");
     jQuery.ajax({
-      url: jQuery(logoContainer).data('portletUrl'),
+      url: jQuery(logoContainer).attr('alternate-logo-url'),
       data: { x_ts: new Date().getTime()},
       dataType: 'json',
       type: 'GET',
@@ -36,7 +36,7 @@ jQuery(document).ready(function(){
   }
   
   function combineTemplateAndData() {
-    var logoContainer = jQuery('[data-portlet-container="alternativeLogos"]');
+    var logoContainer = jQuery('#alternateLogo');
     var elementID = (logoContainer).attr("id");
     var html = template(allLogoData); 
     jQuery('#' + elementID).append(html);
@@ -96,10 +96,10 @@ jQuery(document).ready(function(){
     });
 
     function renderEmptyLogos() {
-      var logoContainer = jQuery('[data-portlet-container="alternativeLogos"]');
+      var logoContainer = jQuery('#alternateLogo');
       var elementID = (logoContainer).attr("id");
       jQuery.ajax({
-        url: jQuery(logoContainer).data('portletUrl'),
+        url: jQuery(logoContainer).attr('alternate-logo-url'),
         data: { x_ts: new Date().getTime()},
         dataType: 'json',
         type: 'GET',
@@ -120,9 +120,6 @@ jQuery(document).ready(function(){
     });
 
     function renderRefreshSelectBoxes() {
-      // test.json
-      // allLogoData.brandBy = parseInt(jQuery('#brand-by-option-selector').val());
-      // testTai.json
       allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
       var html = refreshSelectBoxesTemplate(allLogoData); 
       jQuery('.formSelectMulti').replaceWith(html);
