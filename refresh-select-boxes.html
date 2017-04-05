@@ -1,0 +1,11 @@
+<select class="formSelectMulti" multiple="multiple">
+  {{#each brandByOptions}}
+    {{#ifIdIsBrandBy this.id ../brandBy}}   
+      {{#each options}}
+        <option>
+          {{this.name}}
+        </option>
+      {{/each}}
+    {{/ifIdIsBrandBy }}
+  {{/each}}
+</select>
