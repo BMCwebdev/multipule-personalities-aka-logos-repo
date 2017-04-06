@@ -1,8 +1,8 @@
-<select class="formSelectMulti" multiple="multiple">
+<select class="formSelectMulti" multiple="multiple" name="newBrandOptionSelected-{{@key}}">
   {{#each brandByOptions}}
     {{#ifIdIsBrandBy this.id ../brandBy}}   
       {{#each options}}
-        <option>
+        <option name="newBrandOptionSelected-{{@key}}">
           {{this.name}}
         </option>
       {{/each}}

@@ -2,11 +2,11 @@
   <div>
     <div>
       <img src="" class="{{{uniqueClass}}}"/>
-      <input value="" type="text" class="preview-input {{{uniqueClass}}}" />
+      <input value="" type="text" class="preview-input {{{uniqueClass}}}" name="{{{uniqueClass}}}"/>
       <button class="preview-button {{{uniqueClass}}}">Preview</button>
     </div>
     <div>
-      <select class="formSelectMulti" multiple="multiple">
+      <select class="formSelectMulti" multiple="multiple" name="{{{uniqueClass}}}">
         {{#each brandByOptions}}
           {{#ifIdIsBrandBy this.id ../brandBy}}   
             {{#each options}}

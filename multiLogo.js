@@ -1,5 +1,14 @@
 
 jQuery(document).ready(function(){
+  
+  
+jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
+  event.preventDefault();
+  console.log( jQuery( this ).serialize() );
+});
+  
+  
+  
   var allLogoData = {};
   
   Handlebars.registerHelper('ifIdIsBrandBy', function(thisID, selectedID, options){
@@ -15,7 +24,7 @@ jQuery(document).ready(function(){
   });
 
   var template = {};
-  jQuery.get('demo-template.html', function(templateData) {
+  jQuery.get('/includes/altLogoTest/demo-template.html', function(templateData) {
     template = Handlebars.compile(templateData);
     renderLogos();
   });
@@ -25,7 +34,6 @@ jQuery(document).ready(function(){
     var elementID = (logoContainer).attr("id");
     jQuery.ajax({
       url: jQuery(logoContainer).attr('alternate-logo-url'),
-      data: { x_ts: new Date().getTime()},
       dataType: 'json',
       type: 'GET',
       success: function(logoData) {
@@ -45,19 +53,25 @@ jQuery(document).ready(function(){
   }
   
   function registerAddMoreButton(){
-    jQuery('#add-more-logos-button').click (function(){
+    jQuery('#add-more-logos-button').click (function(e){
+      e.preventDefault();
       addNewAltLogoBlock();
     });
-    jQuery('#brand-by-option-selector').change(function(){
-      refreshSelectBoxes();
+    jQuery('#brand-by-option-selector').change(function(e){
+      e.preventDefault();
+      jQuery('.additionalLogosContainer').html("");
+//      allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
+//      console.log(allLogoData.brandBy);
     });
   }
   function postRenderingFunctions(){
-    jQuery('#logo-preview-button').click (function() {
+    jQuery('#logo-preview-button').click (function(e) {
+      e.preventDefault();
       var newLogo = jQuery('#default-logo-input').val();
       jQuery('#default-logo').attr('src', newLogo);
     });
-    jQuery('.preview-button').click (function(){
+    jQuery('.preview-button').click (function(e){
+      e.preventDefault();
       var grabFullClass = jQuery(this).attr('class');
       var altLogoBlockIdentifier = grabFullClass.replace('preview-button ', '');
       var newLogo = jQuery('input.'+altLogoBlockIdentifier).val();
@@ -65,31 +79,41 @@ jQuery(document).ready(function(){
     });
     jQuery('.preview-input').keypress(function(e){
       if(e.which == 13){
+        e.preventDefault();
         var grabFullClass = jQuery(this).attr('class');
         var altLogoBlockIdentifier = grabFullClass.replace('preview-input ', '');
         jQuery('.preview-button.'+altLogoBlockIdentifier).click();
       }
     });
-    jQuery('.preview-input').blur(function(){
-      var grabFullClass = jQuery(this).attr('class');
-      var altLogoBlockIdentifier = grabFullClass.replace('preview-input ', '');
-      jQuery('.preview-button.'+altLogoBlockIdentifier).click();
-    });
-    jQuery('.logo-delete-button').click (function(){
+//    jQuery('.preview-input').blur(function(e){
+//      e.preventDefault();
+//      var grabFullClass = jQuery(this).attr('class');
+//      var altLogoBlockIdentifier = grabFullClass.replace('preview-input ', '');
+//      jQuery('.preview-button.'+altLogoBlockIdentifier).click();
+//    });
+    jQuery('.logo-delete-button').click (function(e){
+      e.preventDefault();
       var grabFullClass = jQuery(this).attr('class');
       var altLogoBlockIdentifier = grabFullClass.replace('button logo-delete-button ', '');
       jQuery('.individual-logo-container.'+altLogoBlockIdentifier).remove();
+      postRenderingFunctions();
+    });
+    jQuery('input[name^="logo-"]').each(function(i){
+      jQuery(this).attr('name', 'logo-' + ((i+1)-1));
+    });
+    jQuery('select[name^="logo-"]').each(function(i){
+      jQuery(this).attr('name', 'logo-' + ((i+1)-1));
     });
   }
 
   function addNewAltLogoBlock(){
     var emptyTemplate = "";
-    jQuery.get('demo-empty-add-template.html', function(emptyTemplateData) {
+    jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
       emptyTemplate = Handlebars.compile(emptyTemplateData);
       Handlebars.registerHelper('uniqueClass', function(object) {
-        var uniqueClass = jQuery('.newLogoBlockIndex').length;
+        var uniqueClass = jQuery('.individual-logo-container').length;
         return new Handlebars.SafeString(
-          'newLogoBlockIndexIs'+uniqueClass
+          'logo-'+uniqueClass
         );
       });
       renderEmptyLogos();
@@ -100,30 +124,30 @@ jQuery(document).ready(function(){
       var elementID = (logoContainer).attr("id");
       jQuery.ajax({
         url: jQuery(logoContainer).attr('alternate-logo-url'),
-        data: { x_ts: new Date().getTime()},
         dataType: 'json',
         type: 'GET',
         success: function(emptyLogoData) {
+          emptyLogoData.brandBy = jQuery('#brand-by-option-selector').val();
           var html = emptyTemplate(emptyLogoData); 
-          jQuery('#' + elementID).append(html);
+          jQuery('.additionalLogosContainer').append(html);
           postRenderingFunctions();
         }
       });
     }
   }
   
-  function refreshSelectBoxes(){
-    var refreshSelectBoxesTemplate = "";
-    jQuery.get('refresh-select-boxes.html', function(refreshSelectBoxesData) {
-      refreshSelectBoxesTemplate = Handlebars.compile(refreshSelectBoxesData);
-      renderRefreshSelectBoxes();
-    });
-
-    function renderRefreshSelectBoxes() {
-      allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
-      var html = refreshSelectBoxesTemplate(allLogoData); 
-      jQuery('.formSelectMulti').replaceWith(html);
-      postRenderingFunctions();
-    }
-  }
+//  function refreshSelectBoxes(){
+//    var refreshSelectBoxesTemplate = "";
+//    jQuery.get('/includes/altLogoTest/refresh-select-boxes.html', function(refreshSelectBoxesData) {
+//      refreshSelectBoxesTemplate = Handlebars.compile(refreshSelectBoxesData);
+//      renderRefreshSelectBoxes();
+//    });
+//
+//    function renderRefreshSelectBoxes() {
+//      allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
+//      var html = refreshSelectBoxesTemplate(allLogoData); 
+//      jQuery('.formSelectMulti').replaceWith(html);
+//      postRenderingFunctions();
+//    }
+//  }
 });

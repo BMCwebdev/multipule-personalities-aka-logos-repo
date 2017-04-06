@@ -1,11 +1,11 @@
 <div>
   <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
-  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" /><button id="logo-preview-button" class="button logo-default">Preview</button>
+  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" name="defaultLogoUrl"/><button id="logo-preview-button" class="button logo-default">Preview</button>
 </div>
 <div>
-  <select id="brand-by-option-selector">
+  <select id="brand-by-option-selector" name="brandByOptions">
     {{#each brandByOptions}}
-      <option data-id="{{this.id}}" value="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected {{/ifIdIsBrandBy}}>{{this.name}}</option>
+      <option data-id="{{this.id}}" value="{{this.id}}" name="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected="selected" {{/ifIdIsBrandBy}}>{{this.name}}</option>
     {{/each}}
   </select>
 </div>
@@ -14,15 +14,15 @@
     <div class="individual-logo-container logo-{{@key}}">
       <div>
         <img src="{{logo.url}}" class="logo-{{@key}}"/>
-        <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" />
+        <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="logo-{{@key}}-url" />
         <button class="preview-button logo-{{@key}}">Preview</button>
       </div>
       <div>
-        <select class="formSelectMulti" multiple="multiple">
+        <select class="formSelectMulti" multiple="multiple" name="logo-{{@key}}">
           {{#each ../brandByOptions}}
             {{#ifIdIsBrandBy this.id ../../brandBy}}   
               {{#each options}}
-                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected{{/ifMatchToOptions}}>
+                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected="selected"{{/ifMatchToOptions}} name="logo-{{@key}}">
                   {{this.name}}
                 </option>
               {{/each}}
@@ -33,6 +33,9 @@
       <button class="button logo-delete-button logo-{{@key}}">Delete</button>
     </div>
   {{/each}}
+</div>
+<div id="add-more-logos-container">
+  <button id="add-more-logos-button">Add Another Logo</button>
 </div>
 
 
