@@ -11,18 +11,18 @@
 </div>
 <div class="additionalLogosContainer">
   {{#each logos as |logo|}}
-    <div class="individual-logo-container logo-{{@key}}">
+    <div class="individual-logo-container logo-{{@key}}" name="Matilda-placeholder">
       <div>
-        <img src="{{logo.url}}" class="logo-{{@key}}"/>
-        <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="logo-{{@key}}-url" />
-        <button class="preview-button logo-{{@key}}">Preview</button>
+        <img src="{{logo.url}}" class="logo-{{@key}}" name="Matilda-placeholder"/>
+        <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="Matilda-placeholder" />
+        <button class="preview-button logo-{{@key}}" name="Matilda-placeholder">Preview</button>
       </div>
       <div>
-        <select class="formSelectMulti" multiple="multiple" name="logo-{{@key}}">
+        <select class="formSelectMulti" multiple="multiple" name="Matilda-placeholder">
           {{#each ../brandByOptions}}
             {{#ifIdIsBrandBy this.id ../../brandBy}}   
               {{#each options}}
-                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected="selected"{{/ifMatchToOptions}} name="logo-{{@key}}">
+                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected="selected"{{/ifMatchToOptions}}>
                   {{this.name}}
                 </option>
               {{/each}}
@@ -30,7 +30,7 @@
           {{/each}}
         </select>
       </div>
-      <button class="button logo-delete-button logo-{{@key}}">Delete</button>
+      <button class="button logo-delete-button" name="Matilda-placeholder">Delete</button>
     </div>
   {{/each}}
 </div>

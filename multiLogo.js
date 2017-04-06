@@ -72,38 +72,55 @@ jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
     });
     jQuery('.preview-button').click (function(e){
       e.preventDefault();
-      var grabFullClass = jQuery(this).attr('class');
-      var altLogoBlockIdentifier = grabFullClass.replace('preview-button ', '');
-      var newLogo = jQuery('input.'+altLogoBlockIdentifier).val();
-      jQuery('img.'+altLogoBlockIdentifier).attr('src', newLogo);
+      var grabName = jQuery(this).attr('name');
+      var nameMarkup = '[name="'+grabName+'"]';
+//      var altLogoBlockIdentifier = grabName.replace('preview-button ', '');
+      var newLogo = jQuery('input'+nameMarkup).val();
+      jQuery('img'+nameMarkup).attr('src', newLogo);
     });
     jQuery('.preview-input').keypress(function(e){
       if(e.which == 13){
         e.preventDefault();
-        var grabFullClass = jQuery(this).attr('class');
-        var altLogoBlockIdentifier = grabFullClass.replace('preview-input ', '');
-        jQuery('.preview-button.'+altLogoBlockIdentifier).click();
+        var grabName = jQuery(this).attr('name');
+        var nameMarkup = '[name="'+grabName+'"]';
+//        var altLogoBlockIdentifier = grabName.replace('preview-input ', '');
+        jQuery('.preview-button'+nameMarkup).click();
       }
     });
 //    jQuery('.preview-input').blur(function(e){
 //      e.preventDefault();
-//      var grabFullClass = jQuery(this).attr('class');
-//      var altLogoBlockIdentifier = grabFullClass.replace('preview-input ', '');
-//      jQuery('.preview-button.'+altLogoBlockIdentifier).click();
+//      var grabName = jQuery(this).attr('name');
+//      jQuery('.preview-button.'+grabName).click();
 //    });
     jQuery('.logo-delete-button').click (function(e){
       e.preventDefault();
-      var grabFullClass = jQuery(this).attr('class');
-      var altLogoBlockIdentifier = grabFullClass.replace('button logo-delete-button ', '');
-      jQuery('.individual-logo-container.'+altLogoBlockIdentifier).remove();
+      var grabName = jQuery(this).attr('name');
+      console.log(grabName);
+      var nameMarkup = '[name="'+grabName+'"]';
+      console.log(nameMarkup);
+      jQuery('.individual-logo-container'+nameMarkup).remove();
       postRenderingFunctions();
     });
-    jQuery('input[name^="logo-"]').each(function(i){
-      jQuery(this).attr('name', 'logo-' + ((i+1)-1));
+    //set the index of all elements
+    var targetText = '[name^="Matilda-"]';
+    jQuery('div'+targetText).each(function(i){
+      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
     });
-    jQuery('select[name^="logo-"]').each(function(i){
-      jQuery(this).attr('name', 'logo-' + ((i+1)-1));
+    jQuery('img'+targetText).each(function(i){
+      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
     });
+    jQuery('input'+targetText).each(function(i){
+      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+    });
+    jQuery('button.preview-button'+targetText).each(function(i){
+      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+    });
+    jQuery('select'+targetText).each(function(i){
+      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+    });
+    jQuery('button.logo-delete-button'+targetText).each(function(i){
+      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+    });   
   }
 
   function addNewAltLogoBlock(){
