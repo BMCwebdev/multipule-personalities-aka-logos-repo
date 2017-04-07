@@ -1,55 +1,104 @@
 <style>
-  #alternateLogo{
-    
-  }
   #alternateLogo img{
     max-width: 200px;
     max-height: 104px;
-    margin: 10px 0px;
+    margin: 0px 0 10px 0;
+  }
+  #formRowx_logo_path{
+    border-bottom: dashed #ccc 1px;
+  }
+  #formRowx_logo_path .formFloater:first-of-type{
+    margin-bottom: 1em;
+  }
+  .individual-logo-container .formFloater{
+    margin-bottom: 1em;
+  }
+  .individual-logo-container .formFloater:last-of-type {
+    border-bottom: dashed #ccc 1px;
+    margin-bottom: 0px
+  }
+  .brand-by-option-selector.hidden{
+    display: none;
+  }
+  .brand-by-option-selector.visible{
+    display: block;
   }
 </style>
 
 
-
-
- <div>
-  <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
-  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" name="x_logo_path"/><button id="logo-preview-button" class="button logo-default">Preview</button>
-</div>
-<div>
-  <select id="brand-by-option-selector" name="x_alternate_logo_type">
-    {{#each brandByOptions}}
-      <option data-id="{{this.id}}" value="{{this.id}}" name="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected="selected" {{/ifIdIsBrandBy}}>{{this.name}}</option>
-    {{/each}}
-  </select>
-</div>
-<div class="additionalLogosContainer">
-  {{#each logos as |logo|}}
-    <div class="individual-logo-container logo-{{@key}}" name="Matilda-placeholder">
-      <div>
-        <img src="{{logo.url}}" class="logo-{{@key}}" name="Matilda-placeholder"/>
-        <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="Matilda-placeholder" />
-        <button class="preview-button logo-{{@key}}" name="Matilda-placeholder">Preview</button>
+<div class="formRow" id="formRowx_logo_path">
+  <label for="x_logo_path" class="formLabel">Client/Program Logo:
+    <div class="cg-tooltip-icon">
+      <a data-html="true" title="<p>The following general guidelines apply:</p><ul><li>Minimum image width should be 900px</li><li>Background should be white or transparent</li><li>Logo should be cropped up to the left and right edges of the image</li><li>File format should be png or jpg</li></ul>" tabindex=0><span class="hintText">(?)</span></a>
+    </div>
+  </label>
+  <div class="formFloater">
+    <div>
+      <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
+      <div class="descriptionText description">
+        <p>Provide the relative path to the image hosted by CyberGrants (requires that the image first be uploaded to the CyberGrants server by staff), e.g. "/client/eg_logo.png".</p>
       </div>
+      <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default formInput" maxlength="255" name="x_logo_path"/>
+      <button id="logo-preview-button" class="button formButton logo-default">Preview</button>
+    </div>
+  </div>
+    <label class="formLabel">Configure alternate branding by:</label>
+    <div class="formFloater">
       <div>
-        <select class="formSelectMulti" multiple="multiple" name="Matilda-placeholder">
-          {{#each ../brandByOptions}}
-            {{#ifIdIsBrandBy this.id ../../brandBy}}   
-              {{#each options}}
-                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected="selected"{{/ifMatchToOptions}}>
-                  {{this.name}}
-                </option>
-              {{/each}}
-            {{/ifIdIsBrandBy }}
+        <select id="brand-by-option-selector" name="x_alternate_logo_type">
+          {{#each brandByOptions}}
+            <option data-id="{{this.id}}" value="{{this.id}}" name="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected="selected" {{/ifIdIsBrandBy}}>{{this.name}}</option>
           {{/each}}
         </select>
       </div>
-      <button class="button logo-delete-button" name="Matilda-placeholder">Delete</button>
     </div>
+</div>
+  
+
+
+<div class="additionalLogosContainer">
+  {{#each logos as |logo|}}
+      <div class="individual-logo-container logo-{{@key}}" name="x_logo-placeholder">
+        <div>
+          <div class="formRow">
+            <div class="formFloater">
+<!--         We can replace broken image with this, we can start template with 'empty image' placeholder. On preview button click if img value is empty string = placeholder. If broken, below code will take place. On form submit, if img value is placeholder or broken image path, throw error.      
+             <img src="{{logo.url}}" class="logo-{{@key}}" name="x_logo-placeholder" onerror="this.onerror=''; this.src='http://www.clker.com/cliparts/J/h/C/1/o/C/broken-file-icon-hi.png';"/>-->
+              <img src="{{logo.url}}" class="logo-{{@key}}" name="x_logo-placeholder"/>
+            </div>
+            <label class="formLabel">Please make your selections:</label>
+            <div class="formFloater">
+              <select class="formSelectMulti" multiple="multiple" name="x_brand_id-placeholder">
+                {{#each ../brandByOptions}}
+                  {{#ifIdIsBrandBy this.id ../../brandBy}}   
+                    {{#each options}}
+                      <option value="{{brandingId}}" {{#ifMatchToOptions this.brandingId logo.brandingIds}} selected="selected"{{/ifMatchToOptions}}>
+                        {{this.name}}
+                      </option>
+                    {{/each}}
+                  {{/ifIdIsBrandBy }}
+                {{/each}}
+              </select>
+            </div>
+            <label class="formLabel">Alternate client/program logo:</label>
+            <div class="formFloater">
+              <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="x_logo-placeholder" />
+              <button class="preview-button formButton logo-{{@key}}" name="x_logo-placeholder">Preview</button>
+            </div>
+            <div class="formFloater">
+              <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
   {{/each}}
 </div>
-<div id="add-more-logos-container">
-  <button id="add-more-logos-button">Add Another Logo</button>
+<div class="formRow">
+  <div class="formFloater">
+    <div id="add-more-logos-container">
+      <button id="add-more-logos-button" class="formButton">Add Another Logo</button>
+    </div>
+  </div>
 </div>
 
 

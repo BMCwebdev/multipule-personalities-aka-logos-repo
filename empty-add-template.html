@@ -1,12 +1,11 @@
-<div class="individual-logo-container" name="Matilda-placeholder">
-  <div>
-    <div>
-      <img src="" name="Matilda-placeholder"/>
-      <input value="" type="text" class="preview-input {{{uniqueClass}}}" name="Matilda-placeholder"/>
-      <button class="preview-button {{{uniqueClass}}}" name="Matilda-placeholder">Preview</button>
+<div class="individual-logo-container" name="x_logo-placeholder">
+  <div class="formRow">
+    <div class="formFloater">
+      <img src="" name="x_logo-placeholder"/>
     </div>
-    <div>
-      <select class="formSelectMulti" multiple="multiple" name="Matilda-placeholder">
+    <label class="formLabel">Please make your selections:</label>
+    <div class="formFloater">
+      <select class="formSelectMulti" multiple="multiple" name="x_brand_id-placeholder">
         {{#each brandByOptions}}
           {{#ifIdIsBrandBy this.id ../brandBy}}   
             {{#each options}}
@@ -18,6 +17,13 @@
         {{/each}}
       </select>
     </div>
+    <label class="formLabel">Alternate client/program logo:</label>
+    <div class="formFloater">
+      <input value="" type="text" class="preview-input {{{uniqueClass}}}" name="x_logo-placeholder"/>
+      <button class="preview-button formButton {{{uniqueClass}}}" name="x_logo-placeholder">Preview</button>
+    </div>
+    <div class="formFloater">
+      <button class="button formButton logo-delete-button {{{uniqueClass}}}" name="x_logo-placeholder">Delete</button>
+    </div>
   </div>
-  <button class="button logo-delete-button {{{uniqueClass}}}" name="Matilda-placeholder">Delete</button>
 </div>

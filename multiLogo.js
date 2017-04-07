@@ -1,10 +1,25 @@
 
 jQuery(document).ready(function(){
-  console.log('remove log of form post data');
-  jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
-    event.preventDefault();
-    console.log( jQuery( this ).serialize() );
-  });
+
+  function ajaxifyFormPost() {
+    jQuery("[name='eg_config_form']").on('submit', function(event) {
+      event.preventDefault();
+      var form = jQuery(this);
+      var formAction = form.attr('action');
+      var formData = form.serialize();
+      jQuery.ajax(formAction, {
+        data: formData,
+        type: 'POST',
+        dataType: 'html',
+        success: handleFormResponse
+      });
+    });
+  }
+
+  function handleFormResponse(response) {
+    var successResponse = jQuery(response);
+    console.log(successResponse);
+  }
   
   var allLogoData = {};
   
@@ -38,6 +53,7 @@ jQuery(document).ready(function(){
       success: function(logoData) {
         allLogoData = logoData;
         combineTemplateAndData();
+        ajaxifyFormPost();
       }
     });
   }
@@ -97,29 +113,32 @@ jQuery(document).ready(function(){
       jQuery('.individual-logo-container'+nameMarkup).remove();
     });
     //set the index of all elements
-    var targetText = '[name^="Matilda-"]';
+    var targetText = '[name^="x_logo"]';
     jQuery('div'+targetText).each(function(i){
-      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+      jQuery(this).attr('name', 'x_logo' + (i+1));
     });
     jQuery('img'+targetText).each(function(i){
-      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+      jQuery(this).attr('name', 'x_logo' + (i+1));
     });
-    jQuery('input'+targetText).each(function(i){
-      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+    jQuery('input'+targetText).not('input[name="x_logo_path"]').each(function(i){
+      jQuery(this).attr('name', 'x_logo' + (i+1));
     });
     jQuery('button.preview-button'+targetText).each(function(i){
-      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+      jQuery(this).attr('name', 'x_logo' + (i+1));
     });
-    jQuery('select'+targetText).each(function(i){
-      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+    jQuery('select[name^="x_brand_id"]').each(function(i){
+      jQuery(this).attr('name', 'x_brand_id' + (i+1));
     });
     jQuery('button.logo-delete-button'+targetText).each(function(i){
-      jQuery(this).attr('name', 'Matilda-' + ((i+1)-1));
+      jQuery(this).attr('name', 'x_logo' + (i+1));
     });   
   }
 
   function addNewAltLogoBlock(){
 //    more global if empty = " " then else
+//    if (jQuery('.brand-by-option-selector').hasClass('hidden')) || (jQuery('.individual-logo-container').length > 0) {
+//      jQuery('.brand-by-option-selector').removeClass('hidden').addClass('visible');
+//    }
     var emptyTemplate = "";
     jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
       emptyTemplate = Handlebars.compile(emptyTemplateData);
