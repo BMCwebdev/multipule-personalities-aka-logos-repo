@@ -2,14 +2,16 @@
 jQuery(document).ready(function(){
   
   
-jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
-  event.preventDefault();
-  console.log( jQuery( this ).serialize() );
-});
+  jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
+    event.preventDefault();
+    console.log( jQuery( this ).serialize() );
+  });
   
   
   
   var allLogoData = {};
+  
+  jQuery('#alternateLogo').html('<div class="large-loading-icon"></div>');
   
   Handlebars.registerHelper('ifIdIsBrandBy', function(thisID, selectedID, options){
     if (thisID === selectedID) {
@@ -46,6 +48,7 @@ jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
   function combineTemplateAndData() {
     var logoContainer = jQuery('#alternateLogo');
     var elementID = (logoContainer).attr("id");
+    jQuery('#alternateLogo').html('');
     var html = template(allLogoData); 
     jQuery('#' + elementID).append(html);
     postRenderingFunctions();
@@ -99,7 +102,7 @@ jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
       var nameMarkup = '[name="'+grabName+'"]';
       console.log(nameMarkup);
       jQuery('.individual-logo-container'+nameMarkup).remove();
-      postRenderingFunctions();
+//      postRenderingFunctions();
     });
     //set the index of all elements
     var targetText = '[name^="Matilda-"]';
