@@ -1,13 +1,10 @@
 
 jQuery(document).ready(function(){
-  
-  
+  console.log('remove log of form post data');
   jQuery( "[name='eg_config_form']" ).on( "submit", function( event ) {
     event.preventDefault();
     console.log( jQuery( this ).serialize() );
   });
-  
-  
   
   var allLogoData = {};
   
@@ -63,8 +60,6 @@ jQuery(document).ready(function(){
     jQuery('#brand-by-option-selector').change(function(e){
       e.preventDefault();
       jQuery('.additionalLogosContainer').html("");
-//      allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
-//      console.log(allLogoData.brandBy);
     });
   }
   function postRenderingFunctions(){
@@ -77,7 +72,6 @@ jQuery(document).ready(function(){
       e.preventDefault();
       var grabName = jQuery(this).attr('name');
       var nameMarkup = '[name="'+grabName+'"]';
-//      var altLogoBlockIdentifier = grabName.replace('preview-button ', '');
       var newLogo = jQuery('input'+nameMarkup).val();
       jQuery('img'+nameMarkup).attr('src', newLogo);
     });
@@ -86,7 +80,6 @@ jQuery(document).ready(function(){
         e.preventDefault();
         var grabName = jQuery(this).attr('name');
         var nameMarkup = '[name="'+grabName+'"]';
-//        var altLogoBlockIdentifier = grabName.replace('preview-input ', '');
         jQuery('.preview-button'+nameMarkup).click();
       }
     });
@@ -102,7 +95,6 @@ jQuery(document).ready(function(){
       var nameMarkup = '[name="'+grabName+'"]';
       console.log(nameMarkup);
       jQuery('.individual-logo-container'+nameMarkup).remove();
-//      postRenderingFunctions();
     });
     //set the index of all elements
     var targetText = '[name^="Matilda-"]';
@@ -127,6 +119,7 @@ jQuery(document).ready(function(){
   }
 
   function addNewAltLogoBlock(){
+//    more global if empty = " " then else
     var emptyTemplate = "";
     jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
       emptyTemplate = Handlebars.compile(emptyTemplateData);
@@ -155,19 +148,4 @@ jQuery(document).ready(function(){
       });
     }
   }
-  
-//  function refreshSelectBoxes(){
-//    var refreshSelectBoxesTemplate = "";
-//    jQuery.get('/includes/altLogoTest/refresh-select-boxes.html', function(refreshSelectBoxesData) {
-//      refreshSelectBoxesTemplate = Handlebars.compile(refreshSelectBoxesData);
-//      renderRefreshSelectBoxes();
-//    });
-//
-//    function renderRefreshSelectBoxes() {
-//      allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
-//      var html = refreshSelectBoxesTemplate(allLogoData); 
-//      jQuery('.formSelectMulti').replaceWith(html);
-//      postRenderingFunctions();
-//    }
-//  }
 });

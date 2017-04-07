@@ -1,9 +1,23 @@
-<div>
+<style>
+  #alternateLogo{
+    
+  }
+  #alternateLogo img{
+    max-width: 200px;
+    max-height: 104px;
+    margin: 10px 0px;
+  }
+</style>
+
+
+
+
+ <div>
   <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
-  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" name="defaultLogoUrl"/><button id="logo-preview-button" class="button logo-default">Preview</button>
+  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" name="x_logo_path"/><button id="logo-preview-button" class="button logo-default">Preview</button>
 </div>
 <div>
-  <select id="brand-by-option-selector" name="brandByOptions">
+  <select id="brand-by-option-selector" name="x_alternate_logo_type">
     {{#each brandByOptions}}
       <option data-id="{{this.id}}" value="{{this.id}}" name="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected="selected" {{/ifIdIsBrandBy}}>{{this.name}}</option>
     {{/each}}
