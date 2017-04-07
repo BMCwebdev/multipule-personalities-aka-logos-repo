@@ -9,7 +9,7 @@
         {{#each brandByOptions}}
           {{#ifIdIsBrandBy this.id ../brandBy}}   
             {{#each options}}
-              <option>
+              <option  value="{{brandingId}}">
                 {{this.name}}
               </option>
             {{/each}}
@@ -19,11 +19,11 @@
     </div>
     <label class="formLabel">Alternate client/program logo:</label>
     <div class="formFloater">
-      <input value="" type="text" class="preview-input {{{uniqueClass}}}" name="x_logo-placeholder"/>
-      <button class="preview-button formButton {{{uniqueClass}}}" name="x_logo-placeholder">Preview</button>
+      <input value="" type="text" class="preview-input" name="x_logo-placeholder"/>
+      <button class="preview-button formButton" name="x_logo-placeholder">Preview</button>
     </div>
     <div class="formFloater">
-      <button class="button formButton logo-delete-button {{{uniqueClass}}}" name="x_logo-placeholder">Delete</button>
+      <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>
     </div>
   </div>
 </div>

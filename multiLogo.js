@@ -77,6 +77,18 @@ jQuery(document).ready(function(){
       e.preventDefault();
       jQuery('.additionalLogosContainer').html("");
     });
+//    var currentVal = jQuery('#brand-by-option-selector').val();
+//    jQuery('#brand-by-option-selector').change(function(e){
+//      e.preventDefault();
+//      var newVal = jQuery(this).val();
+//      if (confirm("Are you sure you want to change this? You current settings will be deleted upon save.")) {
+//        jQuery(this).val(newVal);
+//        var currentVal = jQuery('#brand-by-option-selector').val();
+//        jQuery('.additionalLogosContainer').html("");
+//      } else {
+//        jQuery(this).val(currentVal);
+//      }
+//    });
   }
   function postRenderingFunctions(){
     jQuery('#logo-preview-button').click (function(e) {
@@ -142,12 +154,12 @@ jQuery(document).ready(function(){
     var emptyTemplate = "";
     jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
       emptyTemplate = Handlebars.compile(emptyTemplateData);
-      Handlebars.registerHelper('uniqueClass', function(object) {
-        var uniqueClass = jQuery('.individual-logo-container').length;
-        return new Handlebars.SafeString(
-          'logo-'+uniqueClass
-        );
-      });
+//      Handlebars.registerHelper('uniqueClass', function(object) {
+//        var uniqueClass = jQuery('.individual-logo-container').length;
+//        return new Handlebars.SafeString(
+//          'logo-'+uniqueClass
+//        );
+//      });
       renderEmptyLogos();
     });
 
