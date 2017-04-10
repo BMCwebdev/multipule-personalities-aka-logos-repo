@@ -9,7 +9,8 @@
         {{#each brandByOptions}}
           {{#ifIdIsBrandBy this.id ../brandBy}}   
             {{#each options}}
-              <option  value="{{brandingId}}"{{#if @first}} selected="selected"{{/if}}>
+<!--              <option  value="{{brandingId}}"{{#if @first}} selected="selected"{{/if}}>-->
+              <option  value="{{brandingId}}">
                 {{this.name}}
               </option>
             {{/each}}
@@ -21,6 +22,7 @@
     <div class="formFloater">
       <input value="" type="text" class="preview-input" name="x_logo-placeholder"/>
       <button class="preview-button formButton" name="x_logo-placeholder">Preview</button>
+      <p class="smallErrorText">Please use a correct pathname eg:"/folder/image-name.jpg or png"</p>
     </div>
     <div class="formFloater">
       <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>

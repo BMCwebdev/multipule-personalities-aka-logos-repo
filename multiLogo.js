@@ -1,7 +1,14 @@
 
-
 jQuery(document).ready(function(){
 
+  var allLogoData = {};
+  var currentVal = "";
+  var getCurrentVal = function(){
+    return jQuery('#brand-by-option-selector').val();
+  }
+// Loading Spinner
+  jQuery('#alternateLogo').html('<div class="large-loading-icon"></div>');
+  
   function ajaxifyFormPost() {
     jQuery("[name='eg_config_form']").on('submit', function(event) {
       event.preventDefault();
@@ -31,13 +38,8 @@ jQuery(document).ready(function(){
     });
   }
   
-  var allLogoData = {};
-  var currentVal = "";
-  var getCurrentVal = function(){
-    return jQuery('#brand-by-option-selector').val();
-  }
+
   
-  jQuery('#alternateLogo').html('<div class="large-loading-icon"></div>');
   
   Handlebars.registerHelper('ifIdIsBrandBy', function(thisID, selectedID, options){
     if (thisID === selectedID) {
@@ -110,14 +112,28 @@ jQuery(document).ready(function(){
     jQuery('#logo-preview-button').click (function(e) {
       e.preventDefault();
       var newLogo = jQuery('#default-logo-input').val();
-      jQuery('#default-logo').attr('src', newLogo);
+      var testPathSlash = (/^\//.test(newLogo));
+      var testPathHttp = (/^http/.test(newLogo));
+      if (testPathSlash === true && testPathHttp === false){
+        jQuery(this).next().addClass('hidden');
+        jQuery('#default-logo').attr('src', newLogo);
+      } else if (testPathSlash === false || testPathHttp === true) {
+        jQuery(this).next().removeClass('hidden');
+      }
     });
     jQuery('.preview-button').click (function(e){
       e.preventDefault();
       var grabName = jQuery(this).attr('name');
       var nameMarkup = '[name="'+grabName+'"]';
       var newLogo = jQuery('input'+nameMarkup).val();
-      jQuery('img'+nameMarkup).attr('src', newLogo);
+      var testPathSlash = (/^\//.test(newLogo));
+      var testPathHttp = (/^http/.test(newLogo));
+      if (testPathSlash === true && testPathHttp === false) {
+        jQuery(this).next().addClass('hidden');
+        jQuery('img'+nameMarkup).attr('src', newLogo);
+      } else if (testPathSlash === false || testPathHttp === true) {
+        jQuery(this).next().removeClass('hidden');
+      }
     });
     jQuery('.preview-input').keypress(function(e){
       if(e.which == 13){
@@ -130,7 +146,8 @@ jQuery(document).ready(function(){
     jQuery('.preview-input').blur(function(e){
       e.preventDefault();
       var grabName = jQuery(this).attr('name');
-      jQuery('.preview-button.'+grabName).click();
+      var nameMarkup = '[name="'+grabName+'"]';
+      jQuery('.preview-button'+nameMarkup).click();
     });
     jQuery('.logo-delete-button').click (function(e){
       e.preventDefault();

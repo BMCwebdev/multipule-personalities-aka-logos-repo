@@ -52,6 +52,7 @@
       </div>
       <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default formInput" maxlength="255" name="x_logo_path"/>
       <button id="logo-preview-button" class="button formButton logo-default">Preview</button>
+      <p class="smallErrorText hidden">Please use a correct pathname eg:"/folder/image-name.jpg or png"</p>
     </div>
   </div>
     <label class="formLabel">Configure alternate branding by:</label>
@@ -96,6 +97,7 @@
             <div class="formFloater">
               <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="x_logo-placeholder" />
               <button class="preview-button formButton logo-{{@key}}" name="x_logo-placeholder">Preview</button>
+              <p class="smallErrorText hidden">Please use a correct pathname eg:"/folder/image-name.jpg or png"</p>
             </div>
             <div class="formFloater">
               <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>
