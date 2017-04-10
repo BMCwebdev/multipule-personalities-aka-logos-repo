@@ -9,7 +9,7 @@
         {{#each brandByOptions}}
           {{#ifIdIsBrandBy this.id ../brandBy}}   
             {{#each options}}
-              <option  value="{{brandingId}}">
+              <option  value="{{brandingId}}"{{#if @first}} selected="selected"{{/if}}>
                 {{this.name}}
               </option>
             {{/each}}
