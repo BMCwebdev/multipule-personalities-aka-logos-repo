@@ -3,12 +3,85 @@ jQuery(document).ready(function(){
 
   var allLogoData = {};
   var currentVal = "";
+  var emptyTemplate = "";
+  var template = {};
   var getCurrentVal = function(){
     return jQuery('#brand-by-option-selector').val();
   }
-// Loading Spinner
+  
+  // Loading Spinner
   jQuery('#alternateLogo').html('<div class="large-loading-icon"></div>');
   
+  //Register Handlebars Helpers  
+  Handlebars.registerHelper('ifIdIsBrandBy', function(thisID, selectedID, options){
+    if (thisID === selectedID) {
+      return options.fn(this);
+    };
+  });
+  Handlebars.registerHelper('ifMatchToOptions', function(brandingId, brandingIds, options){
+    if (brandingIds.indexOf(brandingId) >= 0) {
+      return options.fn(this);
+    };
+  });
+  
+  // Get JSON
+  console.log(allLogoData);
+  if (jQuery.isEmptyObject(allLogoData)) {
+  //if (allLogoData == null) {
+    console.log('allLogoData was empty');
+    var logoContainer = jQuery('#alternateLogo');
+    var elementID = (logoContainer).attr("id");
+    jQuery.ajax({
+      url: jQuery(logoContainer).attr('alternate-logo-url'),
+      dataType: 'json',
+      type: 'GET',
+      success: function(logoData) {
+        allLogoData = logoData;
+      }
+    });
+    console.log('post-ajax');
+    console.log(allLogoData);
+  }
+  
+  // Get Main template
+  if (jQuery.isEmptyObject(template)) {
+    console.log('template was empty');
+    jQuery.get('/includes/altLogoTest/demo-template.html', function(templateData) {
+      template = Handlebars.compile(templateData);
+      console.log(template);
+      renderLogos();
+    });
+  }
+  
+  // Get empty add more template
+  if (emptyTemplate == ""){
+    console.log('emptyTemplate was empty');
+    jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
+      emptyTemplate = Handlebars.compile(emptyTemplateData);
+      console.og(emptyTemplate);
+    });
+  }
+  
+  // Combine Main Template and JSON and render html
+  var renderLogos = function(){
+    jQuery('#alternateLogo').html('');
+    var html = template(allLogoData); 
+    jQuery('#alternateLogo').append(html);
+    console.log(html);
+    postRenderingFunctions();
+    registerButtonFunctions();
+    ajaxifyFormPost();
+  }
+  
+  // Render an empty new logo block
+  function renderEmptyLogos() {
+    allLogoData.brandBy = jQuery('#brand-by-option-selector').val();
+    var html = emptyTemplate(allLogoData); 
+    jQuery('.additionalLogosContainer').append(html);
+    postRenderingFunctions();
+  }
+  
+  // Ajax Posting
   function ajaxifyFormPost() {
     jQuery("[name='eg_config_form']").on('submit', function(event) {
       event.preventDefault();
@@ -23,7 +96,7 @@ jQuery(document).ready(function(){
       });
     });
   }
-
+  //Ajax response 
   function handleFormResponse(response) {
     jQuery.each(response, function(index, element) {
       if (index === 'success') {
@@ -38,63 +111,11 @@ jQuery(document).ready(function(){
     });
   }
   
-
-  
-  
-  Handlebars.registerHelper('ifIdIsBrandBy', function(thisID, selectedID, options){
-    if (thisID === selectedID) {
-      return options.fn(this);
-    };
-  });
-
-  Handlebars.registerHelper('ifMatchToOptions', function(brandingId, brandingIds, options){
-    if (brandingIds.indexOf(brandingId) >= 0) {
-      return options.fn(this);
-    };
-  });
-
-  var template = {};
-  jQuery.get('/includes/altLogoTest/demo-template.html', function(templateData) {
-    template = Handlebars.compile(templateData);
-    renderLogos();
-  });
-  
-  function renderLogos() {
-    var logoContainer = jQuery('#alternateLogo');
-    var elementID = (logoContainer).attr("id");
-    jQuery.ajax({
-      url: jQuery(logoContainer).attr('alternate-logo-url'),
-      dataType: 'json',
-      type: 'GET',
-      success: function(logoData) {
-        allLogoData = logoData;
-        combineTemplateAndData();
-        ajaxifyFormPost();
-      }
-    });
-  }
-  
-  function combineTemplateAndData() {
-    var logoContainer = jQuery('#alternateLogo');
-    var elementID = (logoContainer).attr("id");
-    jQuery('#alternateLogo').html('');
-    var html = template(allLogoData); 
-    jQuery('#' + elementID).append(html);
-    postRenderingFunctions();
-    registerAddMoreButton();
-  }
-  
-  function registerAddMoreButton(){
+  function registerButtonFunctions(){
     jQuery('#add-more-logos-button').click (function(e){
       e.preventDefault();
-      addNewAltLogoBlock();
+      renderEmptyLogos();
     });
-//    jQuery('#brand-by-option-selector').change(function(e){
-//      e.preventDefault();
-//      jQuery('.additionalLogosContainer').html("");
-//      postRenderingFunctions();
-//    });
-//    var currentVal = jQuery('#brand-by-option-selector').val();
     jQuery('#brand-by-option-selector').change(function(e){
       e.preventDefault();
       var newVal = jQuery(this).val();
@@ -108,7 +129,9 @@ jQuery(document).ready(function(){
       }
     });
   }
+  
   function postRenderingFunctions(){
+    // Do All The Inputs!!!!!
     jQuery('#logo-preview-button').click (function(e) {
       e.preventDefault();
       var newLogo = jQuery('#default-logo-input').val();
@@ -161,8 +184,11 @@ jQuery(document).ready(function(){
     } else {
       jQuery('#add-more-logos-button').removeClass('hidden');
     }
+    
+    // get current val of "branding by" to save for change confirm box
     currentVal = getCurrentVal();
-    //set the index of all elements
+    
+    //  set the index of all elements
     var targetText = '[name^="x_logo"]';
     jQuery('div'+targetText).each(function(i){
       jQuery(this).attr('name', 'x_logo' + (i+1));
@@ -182,39 +208,5 @@ jQuery(document).ready(function(){
     jQuery('button.logo-delete-button'+targetText).each(function(i){
       jQuery(this).attr('name', 'x_logo' + (i+1));
     });   
-  }
-
-  function addNewAltLogoBlock(){
-//    more global if empty = " " then else
-//    if (jQuery('.brand-by-option-selector').hasClass('hidden')) || (jQuery('.individual-logo-container').length > 0) {
-//      jQuery('.brand-by-option-selector').removeClass('hidden').addClass('visible');
-//    }
-    var emptyTemplate = "";
-    jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
-      emptyTemplate = Handlebars.compile(emptyTemplateData);
-//      Handlebars.registerHelper('uniqueClass', function(object) {
-//        var uniqueClass = jQuery('.individual-logo-container').length;
-//        return new Handlebars.SafeString(
-//          'logo-'+uniqueClass
-//        );
-//      });
-      renderEmptyLogos();
-    });
-
-    function renderEmptyLogos() {
-      var logoContainer = jQuery('#alternateLogo');
-      var elementID = (logoContainer).attr("id");
-      jQuery.ajax({
-        url: jQuery(logoContainer).attr('alternate-logo-url'),
-        dataType: 'json',
-        type: 'GET',
-        success: function(emptyLogoData) {
-          emptyLogoData.brandBy = jQuery('#brand-by-option-selector').val();
-          var html = emptyTemplate(emptyLogoData); 
-          jQuery('.additionalLogosContainer').append(html);
-          postRenderingFunctions();
-        }
-      });
-    }
   }
 });
