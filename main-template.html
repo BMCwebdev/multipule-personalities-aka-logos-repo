@@ -41,7 +41,9 @@
 <div class="formRow" id="formRowx_logo_path">
   <label for="x_logo_path" class="formLabel">Client/Program Logo:
     <div class="cg-tooltip-icon">
-      <a data-html="true" title="<p>The following general guidelines apply:</p><ul><li>Minimum image width should be 900px</li><li>Background should be white or transparent</li><li>Logo should be cropped up to the left and right edges of the image</li><li>File format should be png or jpg</li></ul>" tabindex=0><span class="hintText">(?)</span></a>
+      <a rel="x_logo_path" title="&lt;p&gt;The following general guidelines apply:&lt;ul&gt;&lt;li&gt;Minimum image width should be 900px&lt;/li&gt;&lt;li&gt;Background should be white or transparent&lt;/li&gt;&lt;li&gt;Logo should be cropped up to the left and right edges of the image&lt;/li&gt;&lt;li&gt;File format should be png or jpg&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;" tabindex=0>
+        <span class="hintText">(?)</span>
+      </a>
     </div>
   </label>
   <div class="formFloater">
@@ -97,7 +99,7 @@
             <div class="formFloater">
               <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="x_logo-placeholder" />
               <button class="preview-button formButton logo-{{@key}}" name="x_logo-placeholder">Preview</button>
-              <p class="smallErrorText hidden">Please use a correct pathname eg:"/folder/image-name.jpg or png"</p>
+              <p class="smallErrorText hidden">Please specify a logo path in the form "/folder/...png" or "/folder/...jpg"</p>
             </div>
             <div class="formFloater">
               <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>

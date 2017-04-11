@@ -4,7 +4,7 @@ jQuery(document).ready(function(){
   var allLogoData = {};
   var currentVal = "";
   var emptyTemplate = "";
-  var template = {};
+  var template = "";
   var getCurrentVal = function(){
     return jQuery('#brand-by-option-selector').val();
   }
@@ -25,49 +25,38 @@ jQuery(document).ready(function(){
   });
   
   // Get JSON
-  console.log(allLogoData);
   if (jQuery.isEmptyObject(allLogoData)) {
-  //if (allLogoData == null) {
-    console.log('allLogoData was empty');
-    var logoContainer = jQuery('#alternateLogo');
-    var elementID = (logoContainer).attr("id");
     jQuery.ajax({
-      url: jQuery(logoContainer).attr('alternate-logo-url'),
+      url: jQuery('#alternateLogo').attr('alternate-logo-url'),
       dataType: 'json',
       type: 'GET',
       success: function(logoData) {
         allLogoData = logoData;
+        getMainTemplate();
       }
     });
-    console.log('post-ajax');
-    console.log(allLogoData);
   }
   
   // Get Main template
-  if (jQuery.isEmptyObject(template)) {
-    console.log('template was empty');
-    jQuery.get('/includes/altLogoTest/demo-template.html', function(templateData) {
+  function getMainTemplate() {
+    jQuery.get('/includes/altLogoTest/main-template.html', function(templateData) {
       template = Handlebars.compile(templateData);
-      console.log(template);
       renderLogos();
     });
   }
   
   // Get empty add more template
   if (emptyTemplate == ""){
-    console.log('emptyTemplate was empty');
     jQuery.get('/includes/altLogoTest/empty-add-template.html', function(emptyTemplateData) {
       emptyTemplate = Handlebars.compile(emptyTemplateData);
-      console.og(emptyTemplate);
     });
   }
   
   // Combine Main Template and JSON and render html
-  var renderLogos = function(){
+  function renderLogos(){
     jQuery('#alternateLogo').html('');
     var html = template(allLogoData); 
     jQuery('#alternateLogo').append(html);
-    console.log(html);
     postRenderingFunctions();
     registerButtonFunctions();
     ajaxifyFormPost();
@@ -79,6 +68,7 @@ jQuery(document).ready(function(){
     var html = emptyTemplate(allLogoData); 
     jQuery('.additionalLogosContainer').append(html);
     postRenderingFunctions();
+//    registerButtonFunctions();
   }
   
   // Ajax Posting
@@ -137,10 +127,11 @@ jQuery(document).ready(function(){
       var newLogo = jQuery('#default-logo-input').val();
       var testPathSlash = (/^\//.test(newLogo));
       var testPathHttp = (/^http/.test(newLogo));
-      if (testPathSlash === true && testPathHttp === false){
+      var testPathEmpty = (/ /.test(newLogo));
+      if (testPathSlash === false && testPathHttp === false && testPathEmpty === true || testPathSlash === true && testPathHttp === false && testPathEmpty === false) {
         jQuery(this).next().addClass('hidden');
         jQuery('#default-logo').attr('src', newLogo);
-      } else if (testPathSlash === false || testPathHttp === true) {
+      } else if (testPathSlash === false && testPathHttp === false && testPathEmpty === false || testPathSlash === false && testPathEmpty === true && testPathEmpty === false) {
         jQuery(this).next().removeClass('hidden');
       }
     });
@@ -150,11 +141,15 @@ jQuery(document).ready(function(){
       var nameMarkup = '[name="'+grabName+'"]';
       var newLogo = jQuery('input'+nameMarkup).val();
       var testPathSlash = (/^\//.test(newLogo));
+      console.log(testPathSlash);
       var testPathHttp = (/^http/.test(newLogo));
-      if (testPathSlash === true && testPathHttp === false) {
+      console.log(testPathHttp);
+      var testPathEmpty = (/^\s*$/.test(newLogo));
+      console.log(testPathEmpty);
+      if (testPathSlash === false && testPathHttp === false && testPathEmpty === true || testPathSlash === true && testPathHttp === false && testPathEmpty === false) {
         jQuery(this).next().addClass('hidden');
         jQuery('img'+nameMarkup).attr('src', newLogo);
-      } else if (testPathSlash === false || testPathHttp === true) {
+      } else if (testPathSlash === false && testPathHttp === false && testPathEmpty === false || testPathSlash === false && testPathEmpty === true && testPathEmpty === false) {
         jQuery(this).next().removeClass('hidden');
       }
     });
