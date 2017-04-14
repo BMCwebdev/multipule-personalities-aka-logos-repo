@@ -1,0 +1,81 @@
+<div id="message-container"></div>
+<div class="formRow" id="formRowx_logo_path">
+  <label for="x_logo_path" class="formLabel">Client/Program Logo:
+    <div class="cg-tooltip-icon">
+      <a rel="x_logo_path" title="&lt;p&gt;The following general guidelines apply:&lt;ul&gt;&lt;li&gt;Minimum image width should be 900px&lt;/li&gt;&lt;li&gt;Background should be white or transparent&lt;/li&gt;&lt;li&gt;Logo should be cropped up to the left and right edges of the image&lt;/li&gt;&lt;li&gt;File format should be png or jpg&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;" tabindex=0>
+        <span class="hintText">(?)</span>
+      </a>
+    </div>
+  </label>
+  <div class="formFloater">
+    <div>
+      <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
+      <div class="descriptionText description">
+        <p>Provide the relative path to the image hosted by CyberGrants (requires that the image first be uploaded to the CyberGrants server by staff), e.g. "/client/eg_logo.png".</p>
+      </div>
+      <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default formInput" maxlength="255" name="x_logo_path"/>
+      <button id="logo-preview-button" class="button formButton logo-default">Preview</button>
+      <p class="smallErrorText hidden">Please use a correct pathname eg:"/folder/image-name.jpg or png"</p>
+    </div>
+  </div>
+    <label class="formLabel">Configure alternate branding by:</label>
+    <div class="formFloater">
+      <div>
+        <select id="brand-by-option-selector" name="x_alternate_logo_type">
+          {{#each brandByOptions}}
+            <option data-id="{{this.id}}" value="{{this.id}}" name="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected="selected" {{/ifIdIsBrandBy}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+</div>
+  
+
+
+<div class="additionalLogosContainer">
+  {{#each logos as |logo|}}
+      <div class="individual-logo-container logo-{{@key}}" name="x_logo-placeholder">
+        <div>
+          <div class="formRow">
+            <div class="formFloater">
+<!--         We can replace broken image with this, we can start template with 'empty image' placeholder. On preview button click if img value is empty string = placeholder. If broken, below code will take place. On form submit, if img value is placeholder or broken image path, throw error.      
+             <img src="{{logo.url}}" class="logo-{{@key}}" name="x_logo-placeholder" onerror="this.onerror=''; this.src='http://www.clker.com/cliparts/J/h/C/1/o/C/broken-file-icon-hi.png';"/>-->
+              <img src="{{logo.url}}" class="logo-{{@key}}" name="x_logo-placeholder"/>
+            </div>
+            <label class="formLabel">Please make your selections:</label>
+            <div class="formFloater">
+              <select class="formSelectMulti" multiple="multiple" name="x_brand_id-placeholder">
+                {{#each ../brandByOptions}}
+                  {{#ifIdIsBrandBy this.id ../../brandBy}}   
+                    {{#each options}}
+                      <option value="{{brandingId}}" {{#ifMatchToOptions this.brandingId logo.brandingIds}} selected="selected"{{/ifMatchToOptions}}>
+                        {{this.name}}
+                      </option>
+                    {{/each}}
+                  {{/ifIdIsBrandBy }}
+                {{/each}}
+              </select>
+            </div>
+            <label class="formLabel">Alternate client/program logo:</label>
+            <div class="formFloater">
+              <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" name="x_logo-placeholder" />
+              <button class="preview-button formButton logo-{{@key}}" name="x_logo-placeholder">Preview</button>
+              <p class="smallErrorText hidden">Please specify a logo path in the form "/folder/...png" or "/folder/...jpg"</p>
+            </div>
+            <div class="formFloater">
+              <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  {{/each}}
+</div>
+<div class="formRow">
+  <div class="formFloater">
+    <div id="add-more-logos-container">
+      <button id="add-more-logos-button" class="formButton">Add Another Logo</button>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,31 @@
+<div class="individual-logo-container" name="x_logo-placeholder">
+  <div class="formRow">
+    <div class="formFloater">
+      <img src="" name="x_logo-placeholder"/>
+    </div>
+    <label class="formLabel">Please make your selections:</label>
+    <div class="formFloater">
+      <select class="formSelectMulti" multiple="multiple" name="x_brand_id-placeholder">
+        {{#each brandByOptions}}
+          {{#ifIdIsBrandBy this.id ../brandBy}}   
+            {{#each options}}
+<!--              <option  value="{{brandingId}}"{{#if @first}} selected="selected"{{/if}}>-->
+              <option  value="{{brandingId}}">
+                {{this.name}}
+              </option>
+            {{/each}}
+          {{/ifIdIsBrandBy }}
+        {{/each}}
+      </select>
+    </div>
+    <label class="formLabel">Alternate client/program logo:</label>
+    <div class="formFloater">
+      <input value="" type="text" class="preview-input" name="x_logo-placeholder"/>
+      <button class="preview-button formButton" name="x_logo-placeholder">Preview</button>
+      <p class="smallErrorText hidden">Please specify a logo path in the form "/folder/...png" or "/folder/...jpg"</p>
+    </div>
+    <div class="formFloater">
+      <button class="button formButton logo-delete-button" name="x_logo-placeholder">Delete</button>
+    </div>
+  </div>
+</div>
