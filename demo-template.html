@@ -1,0 +1,38 @@
+<div>
+  <img id="default-logo" class="logo-default" src="{{defaultLogoUrl}}" />
+  <input id="default-logo-input" value="{{defaultLogoUrl}}" type="text" class="logo-default" /><button id="logo-preview-button" class="button logo-default">Preview</button>
+</div>
+<div>
+  <select id="brand-by-option-selector">
+    {{#each brandByOptions}}
+      <option data-id="{{this.id}}" value="{{this.id}}" {{#ifIdIsBrandBy this.id ../brandBy}}selected {{/ifIdIsBrandBy}}>{{this.name}}</option>
+    {{/each}}
+  </select>
+</div>
+<div class="additionalLogosContainer">
+  {{#each logos as |logo|}}
+    <div class="individual-logo-container logo-{{@key}}">
+      <div>
+        <img src="{{logo.url}}" class="logo-{{@key}}"/>
+        <input value="{{logo.url}}" type="text" class="preview-input logo-{{@key}}" />
+        <button class="preview-button logo-{{@key}}">Preview</button>
+      </div>
+      <div>
+        <select class="formSelectMulti" multiple="multiple">
+          {{#each ../brandByOptions}}
+            {{#ifIdIsBrandBy this.id ../../brandBy}}   
+              {{#each options}}
+                <option{{#ifMatchToOptions this.brandingId logo.brandingIds}} selected{{/ifMatchToOptions}}>
+                  {{this.name}}
+                </option>
+              {{/each}}
+            {{/ifIdIsBrandBy }}
+          {{/each}}
+        </select>
+      </div>
+      <button class="button logo-delete-button logo-{{@key}}">Delete</button>
+    </div>
+  {{/each}}
+</div>
+
+
